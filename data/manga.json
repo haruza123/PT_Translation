@@ -1,0 +1,503 @@
+{
+  "ads": {
+    "active": false,
+    "imageUrl": "./image/ads/iklan.png",
+    "linkUrl": "https://mrbigbarbershop.my.id/"
+  },
+  "translators": [
+    {
+      "id": "johan",
+      "name": "johan TL",
+      "avatar": "./image/profil/johan.jpg",
+      "bio": "Wajah lama yang terjebak di pacuan kuda Uma Musume. Sesekali mampir ke Kivotos atau Terra kalau lagi bosan. Sisanya? Sibuk ngurusin OC sendiri yang nggak kelar-kelar.",
+      "facebook": "https://www.facebook.com/johan.winas.2025/",
+      "facebook2": "https://www.facebook.com/profile.php?id=61585006332289",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "tiktok": "",
+      "Official Website": "https://winastranslation.netlify.app/",
+      "trakteer": "https://trakteer.id/oybmjkbtowieibzefkey",
+      "saweria": "https://saweria.co/JohanWinas",
+      "banner": "./image/profil/johanbanner.jpg"
+    },
+    {
+      "id": "suna",
+      "name": "SunaOokamin't Person",
+      "avatar": "./image/profil/suna.jpg",
+      "bio": "Spesialis cerita yang bikin senyum-senyum sendiri. Ahli dalam meracik Romcom & Slice-of-Life dengan penempatan teks yang pas di mata, dan tentunya... pas di hati",
+      "facebook": "https://www.facebook.com/sunaookamin.t.person",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/sunabanner.jpg"
+    },
+    {
+      "id": "asdf",
+      "name": "ASDF1514",
+      "avatar": "./image/profil/asdf.jpg",
+      "bio": "Tukang translate jalur mood. Sudah beroperasi sejak 2025 dengan prinsip: 'Lebih baik telat upload daripada maksain upload tapi nggak ikhlas'",
+      "facebook": "https://www.facebook.com/share/1DhCnW8JsV/",
+      "twitter": "https://x.com/asdefak1514",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/asdfbanner.jpg"
+    },
+    {
+      "id": "mira",
+      "name": "Mira Turn",
+      "avatar": "./image/profil/mira.jpg",
+      "bio": "Butuh adegan baku hantam atau ketegangan Thriller? Serahin ke sini. Jago nangkep intensitas cerita, lengkap dengan SFX lokal yang tetap terasa 'nendang'.",
+      "facebook": "https://www.facebook.com/mira.turn",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/miraturn.jpg"
+    },
+    {
+      "id": "Zack",
+      "name": "Suomi Archive by Open Tim Media",
+      "avatar": "./image/suomi.jpeg",
+      "bio": "Jembatan multibahasa. Nggak cuma Inggris, bahasa Jerman pun disikat demi memperluas jangkauan pembaca. Selalu punya rencana buat nambah bahasa baru biar makin ramai.",
+      "facebook": "https://www.facebook.com/SuomiRinaArchive",
+      "twitter": "https://x.com/OpenTimZack",
+      "tiktok": "https://www.tiktok.com/@open_tim_media",
+      "instagram": "",
+      "trakteer": "https://trakteer.id/zackrushky",
+      "Patreon": "https://www.patreon.com/cw/OpenTimMedia?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+      "banner": "./image/profil/suomi.png"
+    },
+    {
+      "id": "KAMI",
+      "name": "KAMI (Komik Animanga Indonesia)",
+      "avatar": "./image/profil/kami.jpg",
+      "bio": "Pejuang kualitas di atas kuantitas. Sudah konsisten di dunia fanpage sejak 2023 dengan misi sederhana: mengubah dialog biasa jadi luar biasa lewat sentuhan terjemahan yang pas.",
+      "facebook": "https://www.facebook.com/share/18KTrckc4H/",
+      "SaluranFB":"https://www.facebook.com/share/17YhVPTH5c/",
+      "twitter": "https://x.com/KAMItranslator ",
+      "Bluesky": "https://bsky.app/profile/kaitranslator39.bsky.social",
+      "ChannelWA": "https://whatsapp.com/channel/0029Vb7DEBjFSAt9Cgo82E09",
+      "banner": "./image/profil/kamibanner.jpg"
+    }
+  ],
+  "genres": [
+    {
+      "id": "romance",
+      "name": "Romance",
+      "image": "https://picsum.photos/seed/ptpt-genre-romance/900/620",
+      "banner": "",
+      "desc": "Bikin baper lewat lika-liku perasaan dan momen manis yang nggak ada habisnya."
+    },
+    {
+      "id": "action",
+      "name": "Action",
+      "image": "https://picsum.photos/seed/ptpt-genre-action/900/620",
+      "desc": "Adu jotos, baku hantam, sampai adegan intens yang bikin adrenalin naik."
+    },
+    {
+      "id": "comedy",
+      "name": "Comedy",
+      "image": "https://picsum.photos/seed/ptpt-genre-comedy/900/620",
+      "desc": "Obat stres! Isinya cuma komedi absurd dan kelakuan karakter yang di luar nalar."
+    },
+    {
+      "id": "fantasy",
+      "name": "Fantasy",
+      "image": "https://picsum.photos/seed/ptpt-genre-fantasy/900/620",
+      "desc": "Jelajahi dunia baru, sihir, dan lore mendalam yang melampaui imajinasi."
+    },
+    {
+      "id": "thriller",
+      "name": "Thriller",
+      "image": "https://picsum.photos/seed/ptpt-genre-thriller/900/620",
+      "desc": "Siap-siap senam jantung. Penuh misteri dan plot twist yang nggak terduga."
+    },
+    {
+      "id": "slice_of_life",
+      "name": "Slice of Life",
+      "image": "https://picsum.photos/seed/ptpt-genre-sol/900/620",
+      "desc": "Cerita santai seputar keseharian yang relatable dan nyaman buat diikuti."
+    },
+    {
+      "id": "drama",
+      "name": "Drama",
+      "image": "https://picsum.photos/seed/ptpt-genre-drama/900/620",
+      "desc": "Konflik batin dan drama emosional yang siap menguras air mata."
+    }
+  ],
+  "series": [
+    {
+      "id": "uma",
+      "name": "Uma Musume",
+      "image": "https://gaming-cdn.com/images/products/19965/orig/umamusume-pretty-derby-pc-steam-cover.jpg?v=1754407268",
+      "desc": "Lari demi cita-cita, gacha demi cinta. Isinya bukan cuma balapan kuda, tapi perjuangan para horse girl yang siap bikin tabungan tiket gacha kamu kering"
+    },
+    {
+      "id": "bluearchive",
+      "name": "Blue Archive",
+      "image": "https://assets.altarofgaming.com/wp-content/uploads/2021/11/blue-archive-game-cover-altar-of-gaming.jpg",
+      "desc": "Selamat datang di Kivotos, tempat di mana masalah sebesar apa pun bisa selesai dengan peluru, kerja sama tim, dan tentunya... bimbingan dari seorang Sensei idaman"
+    },
+    {
+      "id": "original",
+      "name": "Original Works",
+      "image": "https://picsum.photos/seed/ptpt-series-original/900/620",
+      "desc": "Lahan basah buat imajinasi liar! Kumpulan cerita murni dari otak para translator kami yang kadang jenius, kadang juga di luar nalar."
+    },
+    {
+      "id": "arknights",
+      "name": "Arknights",
+      "image": "https://assets.altarofgaming.com/wp-content/uploads/2021/11/arknights-game-cover-altar-of-gaming-scaled.jpg",
+      "desc": "Terra itu keras, kawan. Isinya kalau nggak perang, ya depresi. Tapi tenang, setidaknya kita punya waifu/husbando taktis buat nemenin nunggu obat sanity penuh."
+    },
+    {
+      "id": "girlsfrontline",
+      "name": "Girls' Frontline",
+      "image": "https://cdn1.epicgames.com/spt-assets/c574157bdd50421da637d65810718bec/girls-frontline-2-exilium-6c144.jpg",
+      "desc": "Kisah para boneka tempur yang nasibnya jauh lebih berat dari tugas sekolahmu. Dunia sudah hancur, tapi strategi dan persahabatan tetap nomor satu."
+    }
+  ],
+  "manga": [
+    {
+      "id": "rikuhachima_the_story",
+      "title": "Rikuhachima The Story [bakheboi]",
+      "rating": "sfw",
+      "cover": "image/Rikuhachima_The_story/ch1/8.webp",
+      "translator": "johan",
+      "genre": [
+        "drama",
+        "thriller"
+      ],
+      "series": "bluearchive",
+      "language": "id",
+      "description": "Kivotos telah hancur oleh sebuah tragedi, kini Rikuhachima Aru harus bertahan sekaligus mencari harapan baru.",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch1/"
+        },
+        {
+          "number": 2,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch2/"
+        },
+        {
+          "number": 3,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch3/"
+        },
+        {
+          "number": 4,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch4/"
+        },
+        {
+          "number": 5,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/Rikuhachima_The_story/ch5/"
+        },
+        {
+          "number": 6,
+          "extension": ".webp",
+          "pages": 25,
+          "folder": "image/Rikuhachima_The_story/ch6/"
+        },
+        {
+          "number": 7,
+          "extension": ".webp",
+          "pages": 13,
+          "folder": "image/Rikuhachima_The_story/ch7/"
+        }
+      ]
+    },
+    {
+      "id": "twin-turbo",
+      "title": "Ganbare Twin Turbo [Ryuu Miyao]",
+      "rating": "sfw",
+      "cover": "image/Ganbare_Twin_Turbo/1.webp",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Setelah dipaksa meminum ramuan aneh...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 20,
+          "startFrom": 1,
+          "folder": "image/Ganbare_Twin_Turbo/"
+        }
+      ]
+    },
+    {
+      "id": "gomen_spe",
+      "title": "Special week dan trainer yang sudah nikah [aizuki_illust]",
+      "rating": "sfw",
+      "cover": "image/Gomen_spe/ch1/1.png",
+      "translator": "johan",
+      "genre": [
+        "drama"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Special Week mengalami konflik batin...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".png",
+          "pages": 11,
+          "startFrom": 1,
+          "folder": "image/Gomen_spe/ch1/"
+        },
+        {
+          "number": 2,
+          "extension": ".png",
+          "pages": 44,
+          "startFrom": 1,
+          "folder": "image/Gomen_spe/ch2/"
+        }
+      ]
+    },
+    {
+      "id": "trainer_kumpul_kebo",
+      "title": "Kehebohan pagi di tahun baru [hideim]",
+      "rating": "sfw",
+      "cover": "image/Kehebohan_pagi_di_tahun_baru/1.png",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Pesta tahun baru berakhir kacau...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".png",
+          "pages": 16,
+          "startFrom": 1,
+          "folder": "image/Kehebohan_pagi_di_tahun_baru/"
+        }
+      ]
+    },
+    {
+      "id": "mon3tr",
+      "title": "Arknights-Mon3tr [Tanoy KTB]",
+      "rating": "sfw",
+      "cover": "image/mon3tr/1.webp",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "arknights",
+      "language": "id",
+      "description": "Kisah munculnya Mon3tr di Rhodes Island",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 17,
+          "folder": "image/mon3tr/"
+        }
+      ]
+    },
+    {
+      "id": "akane_birthday",
+      "title": "Akane Birthday [nyangboob]",
+      "rating": "sfw",
+      "cover": "image/Akanes_Birthday/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Happy April's fools day, Akane?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 6,
+          "folder": "image/Akanes_Birthday/"
+        }
+      ]
+    },
+    {
+      "id": "paparazi_in_kivotos",
+      "title": "Paparazi In Kivotos [nyangboob]",
+      "rating": "sfw",
+      "cover": "image/paparazi_in_kivotos/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Blue Archive | Tsukatsuki Rio and Sensei get Paparazi by Chronos Media",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/paparazi_in_kivotos/"
+        }
+      ]
+    },
+    {
+      "id": "kehidupan_random_para_uma",
+      "title": "Kehidupan Random Para Uma [ル一キ一ドリフト]",
+      "status": "ongoing",
+      "rating": "sfw",
+      "cover": "image/kehidupan_random_para_uma/1.jpg",
+      "translator": "johan",
+      "genre": [
+        "slice_of_life",
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Ya namanya juga jaran, kadang ada aja kelakukannya",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/kehidupan_random_para_uma/Ch1/"
+        },
+        {
+          "number": 2,
+          "extension": ".webp",
+          "pages": 49,
+          "folder": "image/kehidupan_random_para_uma/Ch2/"
+        },
+        {
+          "number": 3,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/kehidupan_random_para_uma/Ch3/"
+        },
+        {
+          "number": 4,
+          "extension": ".webp",
+          "pages": 12,
+          "folder": "image/kehidupan_random_para_uma/Ch4/"
+        },
+        {
+          "number": 5,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/kehidupan_random_para_uma/Ch5/"
+        },
+        {
+          "number": 6,
+          "extension": ".webp",
+          "pages": 16,
+          "folder": "image/kehidupan_random_para_uma/Ch6/"
+        },
+        {
+          "number": 7,
+          "extension": ".webp",
+          "pages": 13,
+          "folder": "image/kehidupan_random_para_uma/Ch7/"
+        },
+        {
+          "number": 8,
+          "extension": ".webp",
+          "pages": 16,
+          "folder": "image/kehidupan_random_para_uma/Ch8/"
+        }
+      ]
+    },
+    {
+      "id": "how_to_tame_pack_en",
+      "title": "How To Tame Pack EN [nyangboob]",
+      "cover": "image/how_to_tame_pack_en/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Sensei is learning hw to tame Kemonomimi like Hibiki, could he do it?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/how_to_tame_pack_en/"
+        }
+      ]
+    },
+    {
+      "id": "wie_du_dein_rudel_bändigt_de",
+      "title": "Wie du Dein rudel Bändigt DE [nyangboob]",
+      "cover": "image/how_to_tame_pack_de/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Sensei lernt gerade, wie man Kemonomimi zähmt, so wie Hibiki. Ob er das wohl schafft?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/how_to_tame_pack_de/"
+        }
+      ]
+    },
+        {
+      "id": "sang_penyihir_malapetaka",
+      "title": "Sang Penyihir Malapetaka",
+      "cover": "image/sang_penyihir_malapetaka/1.webp",
+      "translator": "KAMI",
+      "genre": [
+        "fantasy",
+        "comedy"
+      ],
+      "series": "original",
+      "language": "id",
+      "description": "Velvet Excidia adalah penyihir pengembara yang sering muncul di berbagai wilayah Horizent tanpa tujuan jelas. Ia dikenal memiliki kekuatan untuk memberantas korupsi, tetapi juga sering dikaitkan dengan kehancuran dan fenomena aneh di tempat yang ia datangi.",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/sang_penyihir_malapetaka/"
+        }
+      ]
+    },
+          {
+      "id": "blue_archive_sei_o_mika_ga_shiawase_ni_narenai_riyuu_",
+      "title": "Mengapa Misono Mika Tidak Boleh Bahagia [nichigeckoh]",
+      "cover": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/1.webp",
+      "translator": "asdf",
+      "genre": [
+        "drama",
+        "romance"
+      ],
+      "series": "original",
+      "language": "id",
+      "description": "Berdasarkan alur cerita utama Blue Archive, khususnya Eden Treaty Volume, Mika Misono dan Seia Yurizono dari Trinity General School tidak dapat menemukan kebahagiaan yang hakiki karena beban politik, trauma masa lalu, dan keputusan yang mereka ambil",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 31,
+          "folder": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/"
+        }
+      ]
+    }  
+  ]
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Translator — PT Prajurit Translation" />
+    <title>Translator — PT Prajurit Translation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/analytics.js" defer></script>
+  </head>
+  <body data-page="translator">
+    <a class="skip-link" href="#main">Langsung ke konten</a>
+
+    <header class="site-header" data-elevate>
+      <div class="container nav">
+        <a class="brand" href="index.html#home" aria-label="PT Prajurit Translation">
+          <span class="brand__mark" aria-hidden="true">PT</span>
+          <span class="brand__text">Prajurit Translation</span>
+        </a>
+
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          data-nav-toggle
+        >
+          <span class="nav__toggle-bar" aria-hidden="true"></span>
+          <span class="nav__toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="nav__menu" id="nav-menu" aria-label="Utama" data-nav-menu>
+          <a class="nav__link" href="index.html#home">Home</a>
+          <a class="nav__link" href="index.html#manga">Manga</a>
+          <a class="nav__link is-active" href="translator.html">Translator</a>
+          <a class="nav__link" href="genre.html">Genre</a>
+          <a class="nav__link" href="series.html">Series</a>
+        </nav>
+
+        <div class="nav__search" data-search-wrap>
+          <label class="visually-hidden" for="global-search">Cari manga</label>
+          <input
+            id="global-search"
+            class="input input--search"
+            type="search"
+            placeholder="Cari manga…"
+            autocomplete="off"
+            spellcheck="false"
+            data-global-search
+          />
+          <div class="suggest" id="search-suggest" role="listbox" aria-label="Saran pencarian"></div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container page-hero__head">
+          <div>
+            <h1 class="page-hero__title">Translator</h1>
+            <p class="page-hero__desc">Profil dan daftar karya dari setiap translator.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <div id="page-root" class="page-root" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__copy">© <span id="year"></span> PT Prajurit Translation</p>
+        <p class="footer__meta">Multi-translator platform • Vanilla HTML/CSS/JS</p>
+      </div>
+    </footer>
+
+    <script src="js/security.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>

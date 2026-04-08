@@ -1,0 +1,542 @@
+"manga": [
+    {
+        "id": "uruslah",
+        "title": "Uruslah Aku Seumur Hidupmu",
+        "cover": "image/Uruslah_aku_seumur_hidupmu/1.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Ketika agnes tacyhon harus menghadapi bahwa trainernya pergi dinas, tacyhon harus mencoba membuat masakan sendiri walaupun dirinya belum pernah memasak",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 9,
+                "startFrom": 1,
+                "folder": "image/Uruslah_aku_seumur_hidupmu/"
+            }
+        ]
+    },
+    {
+        "id": "twin-turbo",
+        "title": "Ganbare Twin Turbo",
+        "cover": "image/Ganbare_Twin_Turbo/1.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Setelah dipaksa meminum ramuan aneh...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 20,
+                "startFrom": 1,
+                "folder": "image/Ganbare_Twin_Turbo/"
+            }
+        ]
+    },
+    {
+        "id": "miyako",
+        "title": "Miyako yang menyatakan perasaannya",
+        "cover": "image/Miyako/1.png",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Kisah Miyako yang menyatakan perasaannya kepada Trainer",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 9,
+                "startFrom": 1,
+                "folder": "image/Miyako/"
+            }
+        ]
+    },
+    {
+        "id": "haru_opera",
+        "title": "Perasaan yang Aneh",
+        "cover": "image/Perasaan_yang_Aneh/1.webp",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Urara menyadari ada yang berbeda...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 8,
+                "startFrom": 1,
+                "folder": "image/Perasaan_yang_Aneh/"
+            }
+        ]
+    },
+    {
+        "id": "trainer_kumpul_kebo",
+        "title": "Kehebohan pagi di tahun baru",
+        "cover": "image/Kehebohan_pagi_di_tahun_baru/1.png",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Pesta tahun baru berakhir kacau...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 16,
+                "startFrom": 1,
+                "folder": "image/Kehebohan_pagi_di_tahun_baru/"
+            }
+        ]
+    },
+    {
+        "id": "keabadian_dalam_kegelapan",
+        "title": "Keabadian dalam Kegelapan",
+        "cover": "image/Keabadian_dalam_Kegelapan/1.png",
+        "translator": "johan",
+        "genre": [
+            "thriller"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Terobsesi untuk memiliki Trainer selamanya...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 8,
+                "startFrom": 1,
+                "folder": "image/Keabadian_dalam_Kegelapan/"
+            }
+        ]
+    },
+    {
+        "id": "gomen_grass",
+        "title": "Kisah Grass Wonder...",
+        "cover": "image/Gomen_Grass/1.webp",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Terobsesi untuk memiliki Trainer selamanya...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 13,
+                "startFrom": 1,
+                "folder": "image/Gomen_Grass/"
+            }
+        ]
+    },
+    {
+        "id": "gomen_spe",
+        "title": "Special week dan trainer yang sudah nikah",
+        "cover": "image/Gomen_spe/ch1/1.png",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Special Week mengalami konflik batin...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 11,
+                "startFrom": 1,
+                "folder": "image/Gomen_spe/ch1/"
+            },
+            {
+                "number": 2,
+                "extension": ".png",
+                "pages": 44,
+                "startFrom": 1,
+                "folder": "image/Gomen_spe/ch2/"
+            }
+        ]
+    },
+    {
+        "id": "makoto_dance",
+        "title": "Dansa bersama Makoto",
+        "cover": "image/Makoto_dance/1.png",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Makoto mengira dirinya terkena penyakit...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 11,
+                "startFrom": 1,
+                "folder": "image/Makoto_dance/"
+            }
+        ]
+    },
+    {
+        "id": "belno_kitahara",
+        "title": "Kisah belno yang mencintai kitaraha",
+        "cover": "image/Belno_kitahara/Ch1/1.png",
+        "translator": "johan",
+        "genre": [
+            "romance"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Kisah belno...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 7,
+                "startFrom": 1,
+                "folder": "image/Belno_kitahara/Ch1/"
+            },
+            {
+                "number": 2,
+                "extension": ".png",
+                "pages": 9,
+                "startFrom": 1,
+                "folder": "image/Belno_kitahara/Ch2/"
+            }
+        ]
+    },
+    {
+        "id": "sensei_ketembak",
+        "title": "ketika sensei tidak sengaja kena tembak",
+        "cover": "image/Sensei_ditembak/1.png",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Padahal cuma kena baju doang...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 9,
+                "startFrom": 1,
+                "folder": "image/Sensei_ditembak/"
+            }
+        ]
+    },
+    {
+        "id": "taiki_cium",
+        "title": "Taiki dan ciuman trainer saat tidur",
+        "cover": "image/Taiki_ngecium/Ch1/1.png",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Taiki yang sedang mengunjungi trainer...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 9,
+                "startFrom": 1,
+                "folder": "image/Taiki_ngecium/Ch1/"
+            },
+            {
+                "number": 2,
+                "extension": ".png",
+                "pages": 13,
+                "startFrom": 1,
+                "folder": "image/Taiki_ngecium/Ch2/"
+            }
+        ]
+    },
+    {
+        "id": "kaitenger",
+        "title": "Kaitenger itu kuat",
+        "cover": "image/Kaitenger/1.png",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Di saat ingatan Shiroko...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 12,
+                "startFrom": 1,
+                "folder": "image/Kaitenger/"
+            }
+        ]
+    },
+    {
+        "id": "suzuka_dah_nikah",
+        "title": "Trainer dan Suzuka yang Menikah",
+        "cover": "image/negahamiTrainerdanSuzukayangpensiun_1528043978336673/Ch1/1.png",
+        "translator": "johan",
+        "genre": [
+            "slice_of_life"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Kehidupan Suzuka...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".png",
+                "pages": 10,
+                "startFrom": 1,
+                "folder": "image/negahamiTrainerdanSuzukayangpensiun_1528043978336673/Ch1/"
+            }
+        ]
+    },
+    {
+        "id": "goldship_pulkam",
+        "title": "Goldship Pulkam",
+        "cover": "image/goldshipPulkam/1.webp",
+        "translator": "johan",
+        "genre": [
+            "slice_of_life"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Goldship pulang kampung...",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 6,
+                "startFrom": 1,
+                "folder": "image/goldshipPulkam/"
+            }
+        ]
+    },
+    {
+        "id": "akane_birthday",
+        "title": "Akane Birthday",
+        "cover": "image/Akanes_Birthday/1.webp",
+        "translator": "Zack",
+        "genre": [
+            "comedy"
+        ],
+        "series": "bluearchive",
+        "language": "En",
+        "description": "Happy April's fools day, Akane?",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 6,
+                "folder": "image/Akanes_Birthday/"
+            }
+        ]
+    },
+    {
+        "id": "paparazi_in_kivotos",
+        "title": "Paparazi In Kivotos",
+        "cover": "image/paparazi_in_kivotos/1.webp",
+        "translator": "Zack",
+        "genre": [
+            "comedy"
+        ],
+        "series": "bluearchive",
+        "language": "En",
+        "description": "Blue Archive | Tsukatsuki Rio and Sensei get Paparazi by Chronos Media",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 4,
+                "folder": "image/paparazi_in_kivotos/"
+            }
+        ]
+    },
+,
+    {
+        "id": "arknights_the_lonely_wanderer",
+        "title": "Arknights - The lonely Wanderer",
+        "cover": "image/Arknights_The_lonely_Wanderer/12.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "arknights",
+        "language": "id",
+        "description": "Ketika paman Mylnar yang sudah pensiun karena kehilangan semangat hidup, malah menemukan sesuatu yang membangkitkan tujuannya kembali.",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 15,
+                "folder": "image/Arknights_The_lonely_Wanderer/"
+            }
+        ]
+    },
+    {
+        "id": "mon3tr",
+        "title": "Mon3tr",
+        "cover": "image/mon3tr/1.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "arknights",
+        "language": "id",
+        "description": "Kisah munculnya Mon3tr di Rhodes Island",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 17,
+                "folder": "image/mon3tr/"
+            }
+        ]
+    },
+    {
+        "id": "rikuhachima_the_story",
+        "title": "Rikuhachima The Story",
+        "cover": "image/Rikuhachima_The_story/ch1/8.webp",
+        "translator": "johan",
+        "genre": [
+            "drama",
+            "thriller"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Kivotos telah hancur oleh sebuah tragedi, kini Rikuhachima Aru harus bertahan sekaligus mencari harapan baru.",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 20,
+                "folder": "image/Rikuhachima_The_story/ch1/"
+            },
+            {
+                "number": 2,
+                "extension": ".webp",
+                "pages": 20,
+                "folder": "image/Rikuhachima_The_story/ch2/"
+            },
+            {
+                "number": 3,
+                "extension": ".webp",
+                "pages": 20,
+                "folder": "image/Rikuhachima_The_story/ch3/"
+            },
+            {
+                "number": 4,
+                "extension": ".webp",
+                "pages": 20,
+                "folder": "image/Rikuhachima_The_story/ch4/"
+            },
+            {
+                "number": 5,
+                "extension": ".webp",
+                "pages": 15,
+                "folder": "image/Rikuhachima_The_story/ch5/"
+            },
+            {
+                "number": 6,
+                "extension": ".webp",
+                "pages": 25,
+                "folder": "image/Rikuhachima_The_story/ch6/"
+            },
+            {
+                "number": 7,
+                "extension": ".webp",
+                "pages": 13,
+                "folder": "image/Rikuhachima_The_story/ch7/"
+            }
+        ]
+    },
+    {
+        "id": "penantian_playable_alter",
+        "title": "Penantian Playable / Alter",
+        "cover": "image/Penantian_Playable/ch2/1.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "bluearchive",
+        "language": "id",
+        "description": "Para murid Blue Archive yang menunggu antrean untuk menjadi playable atau mendapatkan alter.",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 13,
+                "folder": "image/Penantian_Playable/ch1/"
+            },
+            {
+                "number": 2,
+                "extension": ".webp",
+                "pages": 30,
+                "folder": "image/Penantian_Playable/ch2/"
+            }
+        ]
+    },
+    {
+        "id": "ke_sisi_jiwa_yang_lain",
+        "title": "Ke Sisi Jiwa yang Lain",
+        "cover": "image/Ke_sisi_Jiwa_yang_lain/1.webp",
+        "translator": "johan",
+        "genre": [
+            "drama"
+        ],
+        "series": "uma",
+        "language": "id",
+        "description": "Walau mereka telah tiada, nama mereka tetap dikenang dan diteruskan oleh para Uma Musume hingga masa depan.",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 7,
+                "folder": "image/Ke_sisi_Jiwa_yang_lain/"
+            }
+        ]
+    },
+    {
+        "id": "mesin_gachapon",
+        "title": "Mesin Gachapon",
+        "cover": "image/Mesin_Gachapon/1.webp",
+        "translator": "johan",
+        "genre": [
+            "comedy"
+        ],
+        "series": "girlsfrontline",
+        "language": "id",
+        "description": "Siapa juga yang kepikiran naruh CD di gachapon.",
+        "chapters": [
+            {
+                "number": 1,
+                "extension": ".webp",
+                "pages": 8,
+                "folder": "image/Mesin_Gachapon/"
+            }
+        ]
+    }
+]

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Platform multi-translator untuk terjemahan manga."
+    />
+    <title>PT Prajurit Translation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+
+    <script src="js/analytics.js" defer></script>
+  </head>
+  <body data-page="index">
+    <a class="skip-link" href="#main">Langsung ke konten</a>
+
+    <header class="site-header" data-elevate>
+      <div class="container nav">
+        <a
+          class="brand"
+          href="index.html#home"
+          aria-label="PT Prajurit Translation"
+        >
+          <span class="brand__mark" aria-hidden="true">PT</span>
+          <span class="brand__text">Prajurit Translation</span>
+        </a>
+
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          data-nav-toggle
+        >
+          <span class="nav__toggle-bar" aria-hidden="true"></span>
+          <span class="nav__toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="nav__menu" id="nav-menu" aria-label="Utama" data-nav-menu>
+          <a class="nav__link" href="index.html#home">Home</a>
+          <a class="nav__link" href="index.html#manga">Manga</a>
+          <a class="nav__link" href="translator.html">Translator</a>
+          <a class="nav__link" href="genre.html">Genre</a>
+          <a class="nav__link" href="series.html">Series</a>
+        </nav>
+
+        <div class="nav__search" data-search-wrap>
+          <label class="visually-hidden" for="global-search">Cari manga</label>
+          <input
+            id="global-search"
+            class="input input--search"
+            type="search"
+            placeholder="Cari manga…"
+            autocomplete="off"
+            spellcheck="false"
+            data-global-search
+          />
+          <div
+            class="suggest"
+            id="search-suggest"
+            role="listbox"
+            aria-label="Saran pencarian"
+          ></div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="home" class="hero" aria-labelledby="hero-title">
+        <div class="container hero__grid">
+          <div class="hero__copy">
+            <p class="eyebrow"></p>
+            <h1 id="hero-title" class="hero__title">PT Prajurit Translation</h1>
+            <p class="hero__subtitle">
+              PT Prajurit Translation adalah grup kurasi dari kumpulan para
+              translator — satu katalog, banyak gaya.
+            </p>
+            <div class="hero__cta">
+              <a class="btn btn--primary" href="#manga">Lihat Manga</a>
+              <a class="btn btn--ghost" href="translator.html"
+                >Lihat Translator</a
+              >
+            </div>
+          </div>
+
+          <aside class="hero__panel" aria-label="Ringkasan platform">
+            <div class="stat">
+              <p class="stat__label">Manga</p>
+              <p class="stat__value" id="stat-manga">—</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Translator</p>
+              <p class="stat__value" id="stat-translators">—</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Genre</p>
+              <p class="stat__value" id="stat-genres">—</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Series</p>
+              <p class="stat__value" id="stat-series">—</p>
+            </div>
+            <p class="hero__panel-hint">
+              Gunakan search & filter untuk menemukan judul dengan cepat.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="latest-title">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <h2 id="latest-title" class="section__title">Latest Update</h2>
+              <p class="section__desc">
+                Geser horizontal untuk melihat judul yang paling baru aktif.
+              </p>
+            </div>
+            <a class="link link--accent" href="#manga">Lihat semua</a>
+          </div>
+          <div
+            class="hscroll"
+            id="latest-track"
+            aria-label="Latest Update"
+          ></div>
+        </div>
+      </section>
+
+      <section id="history" class="section" aria-labelledby="history-title" style="display: none;">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <h2 id="history-title" class="section__title">Terakhir Dibaca</h2>
+              <p class="section__desc">Lanjutkan komik yang baru saja kamu baca.</p>
+            </div>
+          </div>
+          <div class="history-track" id="history-track" aria-label="Riwayat Baca"></div>
+        </div>
+      </section>
+
+      <section id="manga" class="section" aria-labelledby="manga-title">
+        <div class="container">
+          <div class="section__head section__head--stack">
+            <div>
+              <h2 id="manga-title" class="section__title">Manga</h2>
+              <p class="section__desc" id="manga-count" aria-live="polite"></p>
+            </div>
+
+            <div class="filters" aria-label="Filter manga">
+              <div class="filters__row">
+                <label class="visually-hidden" for="filter-translator"
+                  >Translator</label
+                >
+                <select
+                  class="select"
+                  id="filter-translator"
+                  data-filter="translator"
+                >
+                  <option value="">Semua translator</option>
+                </select>
+
+                <label class="visually-hidden" for="filter-genre">Genre</label>
+                <select class="select" id="filter-genre" data-filter="genre">
+                  <option value="">Semua genre</option>
+                </select>
+
+                <label class="visually-hidden" for="filter-series"
+                  >Series</label
+                >
+                <select class="select" id="filter-series" data-filter="series">
+                  <option value="">Semua series</option>
+                </select>
+
+                <label class="visually-hidden" for="filter-language">Bahasa</label>
+                <select class="select" id="filter-language" data-filter="language">
+                  <option value="">Semua bahasa</option>
+                </select>
+
+                <div style="display: flex; align-items: center; gap: 8px; margin: 0 10px;">
+                  <input type="checkbox" id="filter-favorite" style="width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer;" />
+                  <label for="filter-favorite" style="font-weight: 700; font-size: 0.9rem; cursor: pointer; user-select: none;">Hanya Favorit</label>
+                </div>
+
+                <button class="btn btn--chip" type="button" data-clear-filters>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid--manga" id="manga-grid"></div>
+          <div id="manga-sentinel" style="height: 20px; width: 100%;"></div>
+          <p class="empty" id="manga-empty" hidden>
+            Tidak ada judul yang cocok. Coba ganti kata kunci atau filter.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="translator-title">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <h2 id="translator-title" class="section__title">Translator</h2>
+              <p class="section__desc">
+                Karya dikurasi dari berbagai tim dan individu.
+              </p>
+            </div>
+            <a class="link link--accent" href="translator.html">Lihat semua</a>
+          </div>
+          <div class="grid grid--tiles" id="translator-tiles"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__copy">
+          © <span id="year"></span> PT Prajurit Translation
+        </p>
+        <p class="footer__meta">
+          Multi-translator platform • Vanilla HTML/CSS/JS
+        </p>
+      </div>
+    </footer>
+
+    <!-- Popup Ad Modal -->
+    <div id="ad-popup" class="modal" role="dialog" aria-modal="true">
+      <div class="modal__backdrop" data-ad-close></div>
+      <div class="modal__panel" style="max-width: 500px; padding: 24px; position:relative; background: var(--surface);">
+        <button class="modal__close" type="button" data-ad-close aria-label="Tutup" style="position: absolute; top: 12px; right: 12px;">×</button>
+        <div style="text-align: center;">
+          <p style="margin-bottom: 12px; font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Advertisement</p>
+          <a id="ad-popup-link" href="#" target="_blank" style="display: block; transition: transform 0.2s ease;">
+            <img id="ad-popup-img" src="" alt="Ad" style="max-width: 100%; height: auto; border-radius: 8px;" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/security.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
