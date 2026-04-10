@@ -8,7 +8,7 @@
     {
       "id": "johan",
       "name": "johan TL",
-      "avatar": "./image/profil/johan.jpg",
+      "avatar": "./image/profil/johan.png",
       "bio": "Wajah lama yang terjebak di pacuan kuda Uma Musume. Sesekali mampir ke Kivotos atau Terra kalau lagi bosan. Sisanya? Sibuk ngurusin OC sendiri yang nggak kelar-kelar.",
       "facebook": "https://www.facebook.com/johan.winas.2025/",
       "facebook2": "https://www.facebook.com/profile.php?id=61585006332289",
@@ -73,7 +73,7 @@
       "avatar": "./image/profil/kami.jpg",
       "bio": "Pejuang kualitas di atas kuantitas. Sudah konsisten di dunia fanpage sejak 2023 dengan misi sederhana: mengubah dialog biasa jadi luar biasa lewat sentuhan terjemahan yang pas.",
       "facebook": "https://www.facebook.com/share/18KTrckc4H/",
-      "SaluranFB":"https://www.facebook.com/share/17YhVPTH5c/",
+      "SaluranFB": "https://www.facebook.com/share/17YhVPTH5c/",
       "twitter": "https://x.com/KAMItranslator ",
       "Bluesky": "https://bsky.app/profile/kaitranslator39.bsky.social",
       "ChannelWA": "https://whatsapp.com/channel/0029Vb7DEBjFSAt9Cgo82E09",
@@ -457,7 +457,7 @@
         }
       ]
     },
-        {
+    {
       "id": "sang_penyihir_malapetaka",
       "title": "Sang Penyihir Malapetaka",
       "cover": "image/sang_penyihir_malapetaka/1.webp",
@@ -478,7 +478,7 @@
         }
       ]
     },
-          {
+    {
       "id": "blue_archive_sei_o_mika_ga_shiawase_ni_narenai_riyuu_",
       "title": "Mengapa Misono Mika Tidak Boleh Bahagia [nichigeckoh]",
       "cover": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/1.webp",
@@ -498,6 +498,46 @@
           "folder": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/"
         }
       ]
-    }  
+    },
+    {
+      "id": "präsentationspanne_de",
+      "title": "Präsentationspanne DE [Nyangboob]",
+      "cover": "image/Präsentationspanne_DE/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Hat sie vergessen, das Bild zu ändern?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 8,
+          "folder": "image/Präsentationspanne_DE/"
+        }
+      ]
+    },
+    {
+      "id": "presentation_accident_en",
+      "title": "Presentation Accident EN [Nyangboob]",
+      "cover": "image/Presentation_Accident_EN/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Did she forgot to change the image?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 8,
+          "folder": "image/Presentation_Accident_EN/"
+        }
+      ]
+    }
   ]
 }

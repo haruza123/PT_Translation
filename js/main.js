@@ -16,11 +16,19 @@
     getHistory: () => JSON.parse(localStorage.getItem("ptpt_history") || "[]"),
     saveHistory: (mangaId, chapter) => {
       let h = Storage.getHistory();
-      h = h.filter(x => x.id !== String(mangaId));
-      h.unshift({ id: String(mangaId), chapter: Number(chapter), time: Date.now() });
+      h = h.filter((x) => x.id !== String(mangaId));
+      h.unshift({
+        id: String(mangaId),
+        chapter: Number(chapter),
+        time: Date.now(),
+      });
       localStorage.setItem("ptpt_history", JSON.stringify(h.slice(0, 20))); // Keep last 20
     },
-    getFavorites: () => JSON.parse(localStorage.getItem("ptpt_favorites") || '{"manga":[],"translator":[]}'),
+    getFavorites: () =>
+      JSON.parse(
+        localStorage.getItem("ptpt_favorites") ||
+          '{"manga":[],"translator":[]}',
+      ),
     toggleFavorite: (type, id) => {
       let f = Storage.getFavorites();
       if (!f[type]) f[type] = [];
@@ -33,7 +41,7 @@
     isFavorite: (type, id) => {
       let f = Storage.getFavorites();
       return f[type] && f[type].includes(String(id));
-    }
+    },
   };
 
   window.PTPT_Storage = Storage;
@@ -44,7 +52,7 @@
       class: `btn-bookmark ${isFav ? "is-active" : ""}`,
       type: "button",
       "aria-label": "Bookmark",
-      "title": "Tambah ke Favorit",
+      title: "Tambah ke Favorit",
       text: isFav ? "♥" : "♡",
     });
     btn.dataset.id = id;
@@ -63,14 +71,16 @@
   function renderSkeletonGrid(target, count = 10) {
     if (!target) return;
     target.innerHTML = "";
-    for(let i=0; i<count; i++) {
-      target.appendChild(el("article", { class: "manga-card" }, [
-        el("div", { class: "skeleton" }),
-        el("div", { class: "manga-card__body" }, [
+    for (let i = 0; i < count; i++) {
+      target.appendChild(
+        el("article", { class: "manga-card" }, [
+          el("div", { class: "skeleton" }),
+          el("div", { class: "manga-card__body" }, [
             el("div", { class: "skeleton-text", style: "width: 100%" }),
-            el("div", { class: "skeleton-text", style: "width: 60%" })
-        ])
-      ]));
+            el("div", { class: "skeleton-text", style: "width: 60%" }),
+          ]),
+        ]),
+      );
     }
   }
 
@@ -124,10 +134,10 @@
   }
 
   function getStatus(manga) {
-  if ("status" in manga) return manga.status;
-  if ("ongoing" in manga) return "ongoing"; // fallback lama
-  return "completed";
-}
+    if ("status" in manga) return manga.status;
+    if ("ongoing" in manga) return "ongoing"; // fallback lama
+    return "completed";
+  }
 
   function clampText(input, max = 110) {
     const s = String(input ?? "").trim();
@@ -193,6 +203,22 @@
       acc.set(v, (acc.get(v) || 0) + 1);
     }
     return acc;
+  }
+
+  function getGenrePreviewImage(catalog, genreId) {
+    const mangaList = Array.isArray(catalog.manga) ? catalog.manga : [];
+
+    const related = mangaList.filter(
+      (m) =>
+        Array.isArray(m.genre) && m.genre.map(String).includes(String(genreId)),
+    );
+
+    if (related.length > 0) {
+      const pick = related[Math.floor(Math.random() * related.length)];
+      return pick.banner || pick.cover;
+    }
+
+    return null;
   }
 
   function countByArray(list, key) {
@@ -270,7 +296,13 @@
             el("div", {}, [
               el("div", { class: "suggest__title" }, [
                 m.title,
-                m.language ? el("span", { class: "lang-badge", style: "font-size:0.55rem;", text: `[${m.language}]` }) : null
+                m.language
+                  ? el("span", {
+                      class: "lang-badge",
+                      style: "font-size:0.55rem;",
+                      text: `[${m.language}]`,
+                    })
+                  : null,
               ]),
             ]),
             el("div", { class: "suggest__meta", text: meta }),
@@ -343,7 +375,13 @@
             el("div", {}, [
               el("h3", { class: "latest__title" }, [
                 m.title,
-                m.language ? el("span", { class: "lang-badge", style: "font-size:0.55rem;", text: `[${m.language}]` }) : null
+                m.language
+                  ? el("span", {
+                      class: "lang-badge",
+                      style: "font-size:0.55rem;",
+                      text: `[${m.language}]`,
+                    })
+                  : null,
               ]),
               el("p", { class: "latest__meta", text: meta }),
             ]),
@@ -361,7 +399,10 @@
 
     let toRender = items.slice(0, currentMangaLimit);
     if (append) {
-      toRender = items.slice(currentMangaLimit - MANGA_PER_PAGE, currentMangaLimit);
+      toRender = items.slice(
+        currentMangaLimit - MANGA_PER_PAGE,
+        currentMangaLimit,
+      );
       if (toRender.length === 0) return;
     }
 
@@ -376,18 +417,23 @@
       const status = getStatus(m);
 
       const bookmarkBtn = renderBookmarkBtn("manga", m.id, () => {
-         const favFilter = document.getElementById("filter-favorite");
-         if (favFilter && favFilter.checked) {
-             const reloadEvent = new Event('change');
-             favFilter.dispatchEvent(reloadEvent);
-         }
+        const favFilter = document.getElementById("filter-favorite");
+        if (favFilter && favFilter.checked) {
+          const reloadEvent = new Event("change");
+          favFilter.dispatchEvent(reloadEvent);
+        }
       });
 
       grid.appendChild(
         el("article", { class: "manga-card" }, [
           bookmarkBtn,
           el("a", { href: mangaHref(m.id), style: "display:block;" }, [
-            el("img", { class: "manga-card__cover", src: m.cover, alt: "", loading: "lazy" }),
+            el("img", {
+              class: "manga-card__cover",
+              src: m.cover,
+              alt: "",
+              loading: "lazy",
+            }),
           ]),
           el("div", { class: "manga-card__body" }, [
             el("a", { href: mangaHref(m.id) }, [
@@ -395,9 +441,15 @@
                 m.title,
                 el("span", {
                   class: `status-badge status-${status}`,
-                  text: status === "ongoing" ? "Ongoing" : "Completed"
+                  text: status === "ongoing" ? "Ongoing" : "Completed",
                 }),
-                m.language ? el("span", { class: "lang-badge", style: "font-size:0.55rem;", text: `[${m.language}]` }) : null
+                m.language
+                  ? el("span", {
+                      class: "lang-badge",
+                      style: "font-size:0.55rem;",
+                      text: `[${m.language}]`,
+                    })
+                  : null,
               ]),
             ]),
             el("p", { class: "manga-card__meta", text: metaParts.join(" • ") }),
@@ -477,9 +529,11 @@
     fillSelect(translatorSelect, translators, "Semua translator");
     fillSelect(genreSelect, genres, "Semua genre");
     fillSelect(seriesSelect, series, "Semua series");
-    
+
     // Auto-generate language list from manga data
-    const langsArray = Array.from(new Set(manga.map((m) => m.language).filter(Boolean)));
+    const langsArray = Array.from(
+      new Set(manga.map((m) => m.language).filter(Boolean)),
+    );
     const languages = langsArray.map((l) => ({ id: l, name: l.toUpperCase() }));
     fillSelect(languageSelect, languages, "Semua bahasa");
 
@@ -496,7 +550,7 @@
       if (genreSelect) genreSelect.value = g;
       if (seriesSelect) seriesSelect.value = s;
       if (languageSelect) languageSelect.value = l;
-      if (favSelect) favSelect.checked = (f === "1");
+      if (favSelect) favSelect.checked = f === "1";
     }
 
     function syncToUrl() {
@@ -566,37 +620,49 @@
       const historySec = qs("#history");
       const historyTrack = qs("#history-track");
       if (!historySec || !historyTrack) return;
-      
+
       const history = Storage.getHistory();
       if (!history.length) {
-          historySec.style.display = "none";
-          return;
+        historySec.style.display = "none";
+        return;
       }
-      
+
       let foundManga = [];
-      for(const h of history) {
-          const m = manga.find(x => String(x.id) === h.id);
-          if (m) foundManga.push({ ...m, resumeChapter: h.chapter });
+      for (const h of history) {
+        const m = manga.find((x) => String(x.id) === h.id);
+        if (m) foundManga.push({ ...m, resumeChapter: h.chapter });
       }
 
       if (!foundManga.length) {
-          historySec.style.display = "none";
-          return;
+        historySec.style.display = "none";
+        return;
       }
 
       historySec.style.display = "block";
       historyTrack.innerHTML = "";
-      
-      for(const m of foundManga.slice(0, 8)) {
-         historyTrack.appendChild(
-            el("a", { class: "history-card", href: readerHref(m.id, m.resumeChapter) }, [
-                el("img", { class: "history-card__cover", src: m.cover, alt: "", loading: "lazy" }),
-                el("div", { class: "history-card__body" }, [
-                   el("h3", { class: "history-card__title", text: m.title }),
-                   el("p", { class: "history-card__meta", text: `Chapter ${m.resumeChapter}` })
-                ])
-            ])
-         );
+
+      for (const m of foundManga.slice(0, 8)) {
+        historyTrack.appendChild(
+          el(
+            "a",
+            { class: "history-card", href: readerHref(m.id, m.resumeChapter) },
+            [
+              el("img", {
+                class: "history-card__cover",
+                src: m.cover,
+                alt: "",
+                loading: "lazy",
+              }),
+              el("div", { class: "history-card__body" }, [
+                el("h3", { class: "history-card__title", text: m.title }),
+                el("p", {
+                  class: "history-card__meta",
+                  text: `Chapter ${m.resumeChapter}`,
+                }),
+              ]),
+            ],
+          ),
+        );
       }
     }
 
@@ -607,15 +673,18 @@
 
     const sentinel = qs("#manga-sentinel");
     if (sentinel && window.IntersectionObserver) {
-      const observer = new IntersectionObserver((entries) => {
-         if (entries[0].isIntersecting) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
             const filtered = filterManga();
             if (currentMangaLimit < filtered.length) {
-               currentMangaLimit += MANGA_PER_PAGE;
-               render(true);
+              currentMangaLimit += MANGA_PER_PAGE;
+              render(true);
             }
-         }
-      }, { rootMargin: "200px" });
+          }
+        },
+        { rootMargin: "200px" },
+      );
       observer.observe(sentinel);
     }
 
@@ -1072,19 +1141,36 @@
     root.appendChild(grid);
   }
 
-  function renderVisualEntityList(root, items, getHref, countMap, kindLabel) {
+  function renderVisualEntityList(
+    root,
+    items,
+    getHref,
+    countMap,
+    kindLabel,
+    catalog,
+  ) {
     root.innerHTML = "";
     const grid = el("div", { class: "grid grid--visual" });
 
     for (const it of Array.isArray(items) ? items : []) {
       const count = countMap.get(it.id) || 0;
+
+      let imageSrc;
+      if (kindLabel === "Genre" && catalog) {
+        imageSrc =
+          getGenrePreviewImage(catalog, it.id) ||
+          it.image ||
+          `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
+      } else {
+        imageSrc =
+          it.image ||
+          `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
+      }
       grid.appendChild(
         el("a", { class: "visual-card", href: getHref(it.id) }, [
           el("img", {
             class: "visual-card__img",
-            src:
-              it.image ||
-              `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`,
+            src: imageSrc,
             alt: "",
             loading: "lazy",
           }),
@@ -1125,7 +1211,7 @@
       { key: "karyakarsa", label: "KaryaKarsa" },
       { key: "Patreon", label: "Patreon" },
       { key: "Bluesky", label: "Bluesky" },
-      { key: "ChannelWA", label: "Channel Whatsapp" }
+      { key: "ChannelWA", label: "Channel Whatsapp" },
     ];
 
     return socials
@@ -1278,7 +1364,14 @@
       );
       const list = el("div", { style: "margin-top:14px;" });
       root.appendChild(list);
-      renderVisualEntityList(list, genres, genreHref, mangaByGenre, "Genre");
+      renderVisualEntityList(
+        list,
+        genres,
+        genreHref,
+        mangaByGenre,
+        "Genre",
+        catalog,
+      );
       return;
     }
 
@@ -1359,7 +1452,14 @@
       );
       const list = el("div", { style: "margin-top:14px;" });
       root.appendChild(list);
-      renderVisualEntityList(list, series, seriesHref, mangaBySeries, "Series");
+      renderVisualEntityList(
+        list,
+        series,
+        seriesHref,
+        mangaBySeries,
+        "Series",
+        catalog,
+      );
       return;
     }
 
@@ -1422,12 +1522,13 @@
 
     let catalog;
     const page = document.body?.dataset?.page || "";
-    
+
     if (page === "index") {
-       const grid = qs("#manga-grid");
-       if (grid && !catalog) { // If catalog isn't loaded yet
-           renderSkeletonGrid(grid, 20);
-       }
+      const grid = qs("#manga-grid");
+      if (grid && !catalog) {
+        // If catalog isn't loaded yet
+        renderSkeletonGrid(grid, 20);
+      }
     }
 
     try {
