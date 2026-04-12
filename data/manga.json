@@ -538,6 +538,27 @@
           "folder": "image/Presentation_Accident_EN/"
         }
       ]
+    },
+        {
+      "id": "penyelamatan_sensei_oleh_izuna",
+      "title": "Penyelamatan Sensei Oleh Izuna [ki_no_nekko]",
+      "cover": "image/penyelamatan_sensei_oleh_izuna/1.webp",
+      "translator": "johan",
+      "genre": [
+        "drama",
+        "thriller"
+      ],
+      "series": "bluearchive",
+      "language": "id",
+      "description": "Izuna bergegas menyusup ke markas musuh untuk menyelamatkan Sensei yang diculik. Namun, sebuah jebakan psikologis yang licik dari bos Kaiser membuat garis antara kawan dan lawan menjadi kabur. Sebuah kisah tragis tentang kesetiaan, rasa bersalah, dan harga yang harus dibayar dari sebuah kesalahan fatal",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/penyelamatan_sensei_oleh_izuna/"
+        }
+      ]
     }
   ]
 }
