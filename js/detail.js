@@ -129,36 +129,30 @@
             [
               tr
                 ? el(
-                    "button",
+                    "a",
                     {
                       class: "chip chip--accent",
-                      type: "button",
-                      "data-tag": "translator",
-                      "data-id": tr.id,
+                      href: `translator.html?id=${encodeURIComponent(tr.id)}`,
                     },
                     [`Translator: ${tr.name}`],
                   )
                 : null,
               sr
                 ? el(
-                    "button",
+                    "a",
                     {
                       class: "chip",
-                      type: "button",
-                      "data-tag": "series",
-                      "data-id": sr.id,
+                      href: `series.html?id=${encodeURIComponent(sr.id)}`,
                     },
                     [`Series: ${sr.name}`],
                   )
                 : null,
               ...g.map((gi) =>
                 el(
-                  "button",
+                  "a",
                   {
                     class: "chip",
-                    type: "button",
-                    "data-tag": "genre",
-                    "data-id": gi.id,
+                    href: `genre.html?id=${encodeURIComponent(gi.id)}`,
                   },
                   [gi.name],
                 ),

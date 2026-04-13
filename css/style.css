@@ -834,13 +834,13 @@ select {
 } */
 
 .profile-hero__banner {
-  width: 100%;
-  aspect-ratio: 3 / 1;
-  background: #111; /* biar ada letterbox */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  height: 170px;
   overflow: hidden;
+  background:
+    radial-gradient(700px 260px at 20% 0%, rgba(255, 144, 0, 0.22), transparent 62%),
+    radial-gradient(520px 240px at 90% 20%, rgba(255, 255, 255, 0.09), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 }
 
 .profile-hero__banner-img {
@@ -875,6 +875,11 @@ select {
   object-fit: cover;
   filter: saturate(1.05) contrast(1.05);
   transform: scale(1.02);
+}
+
+.profile-hero--soft .profile-hero__banner-img {
+  filter: saturate(1.12) contrast(1.12) blur(10px);
+  transform: scale(1.16);
 }
 
 .profile-hero__banner-overlay {

@@ -1081,7 +1081,9 @@
     const back = actions.querySelector(".back");
     if (back) back.textContent = "Kembali";
 
-    return el("section", { class: "profile-hero" }, [
+    const cls = avatar ? "profile-hero" : "profile-hero profile-hero--soft";
+
+    return el("section", { class: cls }, [
       el("div", { class: "profile-hero__banner", "aria-hidden": "true" }, [
         image
           ? el("img", {
@@ -1156,24 +1158,36 @@
       const count = countMap.get(it.id) || 0;
 
       let imageSrc;
+      let cycleImages = [];
       if (kindLabel === "Genre" && catalog) {
-        imageSrc =
-          getGenrePreviewImage(catalog, it.id) ||
-          it.image ||
-          `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
+        const mangaList = Array.isArray(catalog.manga) ? catalog.manga : [];
+        const related = mangaList.filter(
+          (m) => Array.isArray(m.genre) && m.genre.map(String).includes(String(it.id))
+        );
+        cycleImages = related.map((m) => m.cover).filter(Boolean);
+        imageSrc = cycleImages.length > 0 ? cycleImages[0] : (it.image || `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`);
       } else {
         imageSrc =
           it.image ||
           `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
       }
+      
+      const imgEl = el("img", {
+        class: "visual-card__img",
+        src: imageSrc,
+        alt: "",
+        loading: "lazy",
+      });
+      imgEl.style.transition = "opacity 0.4s ease";
+      
+      if (cycleImages.length > 1) {
+        imgEl.dataset.cycle = JSON.stringify(cycleImages);
+        imgEl.dataset.cycleIdx = "0";
+      }
+
       grid.appendChild(
         el("a", { class: "visual-card", href: getHref(it.id) }, [
-          el("img", {
-            class: "visual-card__img",
-            src: imageSrc,
-            alt: "",
-            loading: "lazy",
-          }),
+          imgEl,
           el("div", { class: "visual-card__overlay" }),
           el("div", { class: "visual-card__body" }, [
             el("div", { class: "visual-card__kicker", text: kindLabel }),
@@ -1390,14 +1404,22 @@
     const picks = manga.filter((m) =>
       Array.isArray(m.genre) ? m.genre.map(String).includes(String(id)) : false,
     );
+    let heroImage = g.image;
+    if (!heroImage) {
+      if (picks.length > 0) {
+        const randHero = picks[Math.floor(Math.random() * picks.length)];
+        heroImage = randHero.banner || randHero.cover;
+      } else {
+        heroImage = `https://picsum.photos/seed/ptpt-ge-${encodeURIComponent(g.id)}/1200/360`;
+      }
+    }
+
     root.appendChild(
       renderProfileHeader({
         title: g.name,
         desc: g.desc || "—",
         backHref: "genre.html",
-        image:
-          g.image ||
-          `https://picsum.photos/seed/ptpt-ge-${encodeURIComponent(g.id)}/1200/360`,
+        image: heroImage,
         meta: `${picks.length} judul`,
       }),
     );
@@ -1537,7 +1559,35 @@
       console.error(err);
       return;
     }
+
+    const _manga = Array.isArray(catalog.manga) ? catalog.manga : [];
+    const _countsT = countBy(_manga, "translator");
+    const _countsS = countBy(_manga, "series");
+    const _countsG = countByArray(_manga, "genre");
+
+    catalog.translators = (catalog.translators || []).filter((t) => _countsT.get(t.id) > 0);
+    catalog.series = (catalog.series || []).filter((s) => _countsS.get(s.id) > 0);
+    catalog.genres = (catalog.genres || []).filter((g) => _countsG.get(g.id) > 0);
+
     initModalEvents();
+
+    setInterval(() => {
+      document.querySelectorAll("img[data-cycle]").forEach((img) => {
+        try {
+          const arr = JSON.parse(img.dataset.cycle);
+          if (arr && arr.length > 1) {
+            let idx = parseInt(img.dataset.cycleIdx || "0", 10);
+            idx = (idx + 1) % arr.length;
+            img.dataset.cycleIdx = String(idx);
+            img.style.opacity = "0.6";
+            setTimeout(() => {
+              img.src = arr[idx];
+              img.style.opacity = "1";
+            }, 300);
+          }
+        } catch (e) {}
+      });
+    }, 5000);
     const openTagInfo = makeTagInfoOpener(catalog);
 
     document.addEventListener("click", (e) => {
