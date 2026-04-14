@@ -56,6 +56,7 @@
     },
     {
       "id": "Zack",
+      "ai": true,
       "name": "Suomi Archive by Open Tim Media",
       "avatar": "./image/suomi.jpeg",
       "bio": "Jembatan multibahasa. Nggak cuma Inggris, bahasa Jerman pun disikat demi memperluas jangkauan pembaca. Selalu punya rencana buat nambah bahasa baru biar makin ramai.",
@@ -319,6 +320,7 @@
       "genre": [
         "comedy"
       ],
+      "ai": true,
       "series": "bluearchive",
       "language": "En",
       "description": "Happy April's fools day, Akane?",
@@ -337,6 +339,7 @@
       "rating": "sfw",
       "cover": "image/paparazi_in_kivotos/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -422,6 +425,7 @@
       "title": "How To Tame Pack EN [nyangboob]",
       "cover": "image/how_to_tame_pack_en/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -442,6 +446,7 @@
       "title": "Wie du Dein rudel Bändigt DE [nyangboob]",
       "cover": "image/how_to_tame_pack_de/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -504,6 +509,7 @@
       "title": "Präsentationspanne DE [Nyangboob]",
       "cover": "image/Präsentationspanne_DE/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -524,6 +530,7 @@
       "title": "Presentation Accident EN [Nyangboob]",
       "cover": "image/Presentation_Accident_EN/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -565,11 +572,12 @@
       "title": "How Rabbit Is Training EN? [Nyangboob (Firewintersnow)]",
       "cover": "image/how_rabbit_is_training_en/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
       "series": "bluearchive",
-      "language": "en",
+      "language": "En",
       "description": "How rabbit is training but who is smartest to get Sensei's attention?",
       "chapters": [
         {
@@ -585,6 +593,7 @@
       "title": "Wie Trainiert Rabbit DE? [Nyangboob (Firewintersnow)]",
       "cover": "image/wie_trainiert_rabbit_de/1.webp",
       "translator": "Zack",
+      "ai": true,
       "genre": [
         "comedy"
       ],
@@ -605,11 +614,12 @@
   "title": "Unexpected Hypnotize EN [Nyangboob (Firewintersnow)]",
   "cover": "image/unexpected_hypnotize_en/1.webp",
   "translator": "Zack",
+  "ai": true,
   "genre": [
     "comedy"
   ],
   "series": "bluearchive",
-  "language": "en",
+  "language": "En",
   "description": "Mysterious woman come to Satsuki to offer something that proof to hypnotize people",
   "chapters": [
     {

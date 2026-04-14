@@ -139,6 +139,19 @@
     return "completed";
   }
 
+  function hasOwn(obj, key) {
+    return Object.prototype.hasOwnProperty.call(obj ?? {}, key);
+  }
+
+  // AI Art flag:
+  // - Manga-level: set `ai` on the manga object (optional)
+  // - Translator-level default: set `ai` on translator object (applies when manga.ai is not provided)
+  function isAiArt(manga, translatorsById) {
+    if (hasOwn(manga, "ai")) return Boolean(manga?.ai);
+    const tr = translatorsById?.get(String(manga?.translator));
+    return Boolean(tr?.ai);
+  }
+
   function clampText(input, max = 110) {
     const s = String(input ?? "").trim();
     if (s.length <= max) return s;
@@ -303,6 +316,9 @@
                       text: `[${m.language}]`,
                     })
                   : null,
+                isAiArt(m, translators)
+                  ? el("span", { class: "ai-badge", text: "AI Art" })
+                  : null,
               ]),
             ]),
             el("div", { class: "suggest__meta", text: meta }),
@@ -382,6 +398,9 @@
                       text: `[${m.language}]`,
                     })
                   : null,
+                isAiArt(m, translators)
+                  ? el("span", { class: "ai-badge", text: "AI Art" })
+                  : null,
               ]),
               el("p", { class: "latest__meta", text: meta }),
             ]),
@@ -391,20 +410,24 @@
     }
   }
 
-  function renderMangaGrid(grid, items, catalog, append = false, limitOverride = null) {
+  function renderMangaGrid(
+    grid,
+    items,
+    catalog,
+    append = false,
+    limitOverride = null,
+  ) {
     if (!append) grid.innerHTML = "";
     const translators = indexById(catalog.translators);
     const genres = indexById(catalog.genres);
     const series = indexById(catalog.series);
 
-    const limitToUse = limitOverride !== null ? limitOverride : currentMangaLimit;
+    const limitToUse =
+      limitOverride !== null ? limitOverride : currentMangaLimit;
 
     let toRender = items.slice(0, limitToUse);
     if (append) {
-      toRender = items.slice(
-        limitToUse - MANGA_PER_PAGE,
-        limitToUse,
-      );
+      toRender = items.slice(limitToUse - MANGA_PER_PAGE, limitToUse);
       if (toRender.length === 0) return;
     }
 
@@ -417,6 +440,7 @@
       const metaParts = [tr?.name, s, g[0]].filter(Boolean).slice(0, 3);
 
       const status = getStatus(m);
+      const ai = isAiArt(m, translators);
 
       const bookmarkBtn = renderBookmarkBtn("manga", m.id, () => {
         const favFilter = document.getElementById("filter-favorite");
@@ -452,6 +476,7 @@
                       text: `[${m.language}]`,
                     })
                   : null,
+                ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
               ]),
             ]),
             el("p", { class: "manga-card__meta", text: metaParts.join(" • ") }),
@@ -478,6 +503,7 @@
     const seriesSelect = qs("#filter-series");
     const languageSelect = qs("#filter-language");
     const favSelect = qs("#filter-favorite");
+    const aiSelect = qs("#filter-ai");
     const clearBtn = qs("[data-clear-filters]");
     const searchInput = qs("[data-global-search]");
 
@@ -485,6 +511,7 @@
     const translators = Array.isArray(catalog.translators)
       ? catalog.translators
       : [];
+    const translatorsById = indexById(translators);
     const genres = Array.isArray(catalog.genres) ? catalog.genres : [];
     const series = Array.isArray(catalog.series) ? catalog.series : [];
 
@@ -547,12 +574,14 @@
       const s = params.get("series") || "";
       const l = params.get("language") || "";
       const f = params.get("fav") || "";
+      const ai = params.get("ai") || "";
       if (searchInput) searchInput.value = q;
       if (translatorSelect) translatorSelect.value = t;
       if (genreSelect) genreSelect.value = g;
       if (seriesSelect) seriesSelect.value = s;
       if (languageSelect) languageSelect.value = l;
       if (favSelect) favSelect.checked = f === "1";
+      if (aiSelect) aiSelect.value = ai;
     }
 
     function syncToUrl() {
@@ -562,6 +591,7 @@
       const g = genreSelect?.value || "";
       const s = seriesSelect?.value || "";
       const l = languageSelect?.value || "";
+      const aiMode = aiSelect?.value || "";
 
       if (q) params.set("q", q);
       else params.delete("q");
@@ -581,6 +611,9 @@
       if (favSelect?.checked) params.set("fav", "1");
       else params.delete("fav");
 
+      if (aiMode) params.set("ai", aiMode);
+      else params.delete("ai");
+
       setParams(params);
     }
 
@@ -591,6 +624,7 @@
       const s = seriesSelect?.value || "";
       const l = languageSelect?.value || "";
       const isFav = favSelect?.checked || false;
+      const aiMode = aiSelect?.value || "";
 
       return manga.filter((m) => {
         if (q && !normalize(m?.title).includes(q)) return false;
@@ -602,6 +636,9 @@
           if (!arr.map(String).includes(String(g))) return false;
         }
         if (isFav && !Storage.isFavorite("manga", m.id)) return false;
+        // if (aiSelect?.checked && !isAiArt(m, translatorsById)) return false;
+        if (aiMode === "only" && !isAiArt(m, translatorsById)) return false;
+        if (aiMode === "hide" && isAiArt(m, translatorsById)) return false;
         return true;
       });
     }
@@ -689,7 +726,10 @@
       sentinel.style.justifyContent = "center";
       sentinel.style.padding = "20px 0";
 
-      const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+      const loadBtn = el("button", {
+        class: "btn btn--primary",
+        text: "Muat Lebih Banyak",
+      });
       loadBtn.addEventListener("click", () => {
         const filtered = filterManga();
         if (currentMangaLimit < filtered.length) {
@@ -706,12 +746,14 @@
     seriesSelect?.addEventListener("change", onAnyChange);
     languageSelect?.addEventListener("change", onAnyChange);
     favSelect?.addEventListener("change", onAnyChange);
+    aiSelect?.addEventListener("change", onAnyChange);
     clearBtn?.addEventListener("click", () => {
       if (translatorSelect) translatorSelect.value = "";
       if (genreSelect) genreSelect.value = "";
       if (seriesSelect) seriesSelect.value = "";
       if (languageSelect) languageSelect.value = "";
       if (favSelect) favSelect.checked = false;
+      if (aiSelect) aiSelect.checked = false;
       if (searchInput) searchInput.value = "";
       render();
     });
@@ -1174,16 +1216,22 @@
       if (kindLabel === "Genre" && catalog) {
         const mangaList = Array.isArray(catalog.manga) ? catalog.manga : [];
         const related = mangaList.filter(
-          (m) => Array.isArray(m.genre) && m.genre.map(String).includes(String(it.id))
+          (m) =>
+            Array.isArray(m.genre) &&
+            m.genre.map(String).includes(String(it.id)),
         );
         cycleImages = related.map((m) => m.cover).filter(Boolean);
-        imageSrc = cycleImages.length > 0 ? cycleImages[0] : (it.image || `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`);
+        imageSrc =
+          cycleImages.length > 0
+            ? cycleImages[0]
+            : it.image ||
+              `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
       } else {
         imageSrc =
           it.image ||
           `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
       }
-      
+
       const imgEl = el("img", {
         class: "visual-card__img",
         src: imageSrc,
@@ -1191,7 +1239,7 @@
         loading: "lazy",
       });
       imgEl.style.transition = "opacity 0.4s ease";
-      
+
       if (cycleImages.length > 1) {
         imgEl.dataset.cycle = JSON.stringify(cycleImages);
         imgEl.dataset.cycleIdx = "0";
@@ -1295,7 +1343,10 @@
 
     const works = manga.filter((m) => String(m.translator) === String(id));
 
-    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+    if (
+      window.PTPTAnalytics &&
+      typeof window.PTPTAnalytics.track === "function"
+    ) {
       window.PTPTAnalytics.track("view_translator_profile", {
         translator_id: String(tr.id),
         translator_name: String(tr.name || ""),
@@ -1376,8 +1427,13 @@
     renderMangaGrid(grid, works, catalog, false, worksLimit);
     root.appendChild(grid);
 
-    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
-    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    const btnWrap = el("div", {
+      style: "display:flex;justify-content:center;padding:20px 0;",
+    });
+    const loadBtn = el("button", {
+      class: "btn btn--primary",
+      text: "Muat Lebih Banyak",
+    });
     if (worksLimit < works.length) {
       btnWrap.appendChild(loadBtn);
       root.appendChild(btnWrap);
@@ -1443,7 +1499,10 @@
       Array.isArray(m.genre) ? m.genre.map(String).includes(String(id)) : false,
     );
 
-    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+    if (
+      window.PTPTAnalytics &&
+      typeof window.PTPTAnalytics.track === "function"
+    ) {
       window.PTPTAnalytics.track("view_genre_profile", {
         genre_id: String(g.id),
         genre_name: String(g.name || ""),
@@ -1498,8 +1557,13 @@
     renderMangaGrid(grid, picks, catalog, false, picksLimit);
     root.appendChild(grid);
 
-    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
-    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    const btnWrap = el("div", {
+      style: "display:flex;justify-content:center;padding:20px 0;",
+    });
+    const loadBtn = el("button", {
+      class: "btn btn--primary",
+      text: "Muat Lebih Banyak",
+    });
     if (picksLimit < picks.length) {
       btnWrap.appendChild(loadBtn);
       root.appendChild(btnWrap);
@@ -1563,7 +1627,10 @@
 
     const picks = manga.filter((m) => String(m.series) === String(id));
 
-    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+    if (
+      window.PTPTAnalytics &&
+      typeof window.PTPTAnalytics.track === "function"
+    ) {
       window.PTPTAnalytics.track("view_series_profile", {
         series_id: String(s.id),
         series_name: String(s.name || ""),
@@ -1610,8 +1677,13 @@
     renderMangaGrid(grid, picks, catalog, false, picksLimit);
     root.appendChild(grid);
 
-    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
-    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    const btnWrap = el("div", {
+      style: "display:flex;justify-content:center;padding:20px 0;",
+    });
+    const loadBtn = el("button", {
+      class: "btn btn--primary",
+      text: "Muat Lebih Banyak",
+    });
     if (picksLimit < picks.length) {
       btnWrap.appendChild(loadBtn);
       root.appendChild(btnWrap);
@@ -1655,9 +1727,15 @@
     const _countsS = countBy(_manga, "series");
     const _countsG = countByArray(_manga, "genre");
 
-    catalog.translators = (catalog.translators || []).filter((t) => _countsT.get(t.id) > 0);
-    catalog.series = (catalog.series || []).filter((s) => _countsS.get(s.id) > 0);
-    catalog.genres = (catalog.genres || []).filter((g) => _countsG.get(g.id) > 0);
+    catalog.translators = (catalog.translators || []).filter(
+      (t) => _countsT.get(t.id) > 0,
+    );
+    catalog.series = (catalog.series || []).filter(
+      (s) => _countsS.get(s.id) > 0,
+    );
+    catalog.genres = (catalog.genres || []).filter(
+      (g) => _countsG.get(g.id) > 0,
+    );
 
     initModalEvents();
 

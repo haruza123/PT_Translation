@@ -103,6 +103,10 @@
     const g = Array.isArray(found.genre)
       ? found.genre.map((id2) => genres.get(String(id2))).filter(Boolean)
       : [];
+    const ai =
+      Object.prototype.hasOwnProperty.call(found ?? {}, "ai")
+        ? Boolean(found?.ai)
+        : Boolean(tr?.ai);
 
     if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
       window.PTPTAnalytics.track("view_manga_detail", {
@@ -130,7 +134,10 @@
         el("div", { class: "detail__body" }, [
           el("h2", { class: "detail__title" }, [
             found.title,
-            found.language ? el("span", { class: "lang-badge", text: `[${found.language}]` }) : null
+            found.language
+              ? el("span", { class: "lang-badge", text: `[${found.language}]` })
+              : null,
+            ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
           ]),
           el(
             "div",

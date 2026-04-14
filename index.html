@@ -8,7 +8,7 @@
       content="Platform multi-translator untuk terjemahan manga."
     />
     <title>Prajurit Translation</title>
-    <link rel="icon" href="image/PT.png" type="image/png">
+    <link rel="icon" href="image/PT.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,7 +16,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
-
 
     <script src="js/analytics.js" defer></script>
   </head>
@@ -136,15 +135,26 @@
         </div>
       </section>
 
-      <section id="history" class="section" aria-labelledby="history-title" style="display: none;">
+      <section
+        id="history"
+        class="section"
+        aria-labelledby="history-title"
+        style="display: none"
+      >
         <div class="container">
           <div class="section__head">
             <div>
               <h2 id="history-title" class="section__title">Terakhir Dibaca</h2>
-              <p class="section__desc">Lanjutkan komik yang baru saja kamu baca.</p>
+              <p class="section__desc">
+                Lanjutkan komik yang baru saja kamu baca.
+              </p>
             </div>
           </div>
-          <div class="history-track" id="history-track" aria-label="Riwayat Baca"></div>
+          <div
+            class="history-track"
+            id="history-track"
+            aria-label="Riwayat Baca"
+          ></div>
         </div>
       </section>
 
@@ -181,14 +191,60 @@
                   <option value="">Semua series</option>
                 </select>
 
-                <label class="visually-hidden" for="filter-language">Bahasa</label>
-                <select class="select" id="filter-language" data-filter="language">
+                <label class="visually-hidden" for="filter-language"
+                  >Bahasa</label
+                >
+                <select
+                  class="select"
+                  id="filter-language"
+                  data-filter="language"
+                >
                   <option value="">Semua bahasa</option>
                 </select>
 
-                <div style="display: flex; align-items: center; gap: 8px; margin: 0 10px;">
-                  <input type="checkbox" id="filter-favorite" style="width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer;" />
-                  <label for="filter-favorite" style="font-weight: 700; font-size: 0.9rem; cursor: pointer; user-select: none;">Hanya Favorit</label>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin: 0 10px;
+                  "
+                >
+                  <select class="select" id="filter-ai">
+                    <option value="">Semua</option>
+                    <option value="only">Hanya AI</option>
+                    <option value="hide">Sembunyikan AI</option>
+                  </select>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin: 0 10px;
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    id="filter-favorite"
+                    style="
+                      width: 18px;
+                      height: 18px;
+                      accent-color: var(--accent);
+                      cursor: pointer;
+                    "
+                  />
+                  <label
+                    for="filter-favorite"
+                    style="
+                      font-weight: 700;
+                      font-size: 0.9rem;
+                      cursor: pointer;
+                      user-select: none;
+                    "
+                    >Hanya Favorit</label
+                  >
                 </div>
 
                 <button class="btn btn--chip" type="button" data-clear-filters>
@@ -199,7 +255,7 @@
           </div>
 
           <div class="grid grid--manga" id="manga-grid"></div>
-          <div id="manga-sentinel" style="height: 20px; width: 100%;"></div>
+          <div id="manga-sentinel" style="height: 20px; width: 100%"></div>
           <p class="empty" id="manga-empty" hidden>
             Tidak ada judul yang cocok. Coba ganti kata kunci atau filter.
           </p>
@@ -236,12 +292,49 @@
     <!-- Popup Ad Modal -->
     <div id="ad-popup" class="modal" role="dialog" aria-modal="true">
       <div class="modal__backdrop" data-ad-close></div>
-      <div class="modal__panel" style="max-width: 500px; padding: 24px; position:relative; background: var(--surface);">
-        <button class="modal__close" type="button" data-ad-close aria-label="Tutup" style="position: absolute; top: 12px; right: 12px;">×</button>
-        <div style="text-align: center;">
-          <p style="margin-bottom: 12px; font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Advertisement</p>
-          <a id="ad-popup-link" href="#" target="_blank" style="display: block; transition: transform 0.2s ease;">
-            <img id="ad-popup-img" src="" alt="Ad" style="max-width: 100%; height: auto; border-radius: 8px;" />
+      <div
+        class="modal__panel"
+        style="
+          max-width: 500px;
+          padding: 24px;
+          position: relative;
+          background: var(--surface);
+        "
+      >
+        <button
+          class="modal__close"
+          type="button"
+          data-ad-close
+          aria-label="Tutup"
+          style="position: absolute; top: 12px; right: 12px"
+        >
+          ×
+        </button>
+        <div style="text-align: center">
+          <p
+            style="
+              margin-bottom: 12px;
+              font-weight: 600;
+              color: var(--muted);
+              font-size: 0.8rem;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            "
+          >
+            Advertisement
+          </p>
+          <a
+            id="ad-popup-link"
+            href="#"
+            target="_blank"
+            style="display: block; transition: transform 0.2s ease"
+          >
+            <img
+              id="ad-popup-img"
+              src=""
+              alt="Ad"
+              style="max-width: 100%; height: auto; border-radius: 8px"
+            />
           </a>
         </div>
       </div>
