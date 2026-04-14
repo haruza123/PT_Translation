@@ -374,10 +374,9 @@
     const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
     const translators = indexById(catalog.translators);
 
-    const sorted = [...manga].sort(
-      (a, b) => getMaxChapter(b) - getMaxChapter(a),
-    );
-    const picks = sorted.slice(0, 10);
+    const sorted = [...manga].reverse();
+    const limit = window.innerWidth < 768 ? 5 : 8;
+    const picks = sorted.slice(0, limit);
 
     for (const m of picks) {
       const tr = translators.get(String(m.translator));
@@ -437,8 +436,13 @@
         ? m.genre.map((id) => genres.get(String(id))?.name).filter(Boolean)
         : [];
       const s = series.get(String(m.series))?.name;
-      const metaParts = [tr?.name, s, g[0]].filter(Boolean).slice(0, 3);
-
+      // const metaParts = [tr?.name, s, g[0]].filter(Boolean).slice(0, 3);
+      const metaParts = [
+        tr?.name,
+        m.language ? m.language.toUpperCase() : null,
+        s,
+        g[0],
+      ].filter(Boolean);
       const status = getStatus(m);
       const ai = isAiArt(m, translators);
 
@@ -469,13 +473,13 @@
                   class: `status-badge status-${status}`,
                   text: status === "ongoing" ? "Ongoing" : "Completed",
                 }),
-                m.language
-                  ? el("span", {
-                      class: "lang-badge",
-                      style: "font-size:0.55rem;",
-                      text: `[${m.language}]`,
-                    })
-                  : null,
+                // m.language
+                //   ? el("span", {
+                //       class: "lang-badge",
+                //       style: "font-size:0.55rem;",
+                //       text: `[${m.language}]`,
+                //     })
+                //   : null,
                 ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
               ]),
             ]),
