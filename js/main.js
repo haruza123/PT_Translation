@@ -1282,6 +1282,14 @@
     }
 
     const works = manga.filter((m) => String(m.translator) === String(id));
+
+    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+      window.PTPTAnalytics.track("view_translator_profile", {
+        translator_id: String(tr.id),
+        translator_name: String(tr.name || ""),
+        works_count: String(works.length),
+      });
+    }
     root.appendChild(
       renderProfileHeader({
         title: tr.name,
@@ -1404,6 +1412,14 @@
     const picks = manga.filter((m) =>
       Array.isArray(m.genre) ? m.genre.map(String).includes(String(id)) : false,
     );
+
+    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+      window.PTPTAnalytics.track("view_genre_profile", {
+        genre_id: String(g.id),
+        genre_name: String(g.name || ""),
+        titles_count: String(picks.length),
+      });
+    }
     let heroImage = g.image;
     if (!heroImage) {
       if (picks.length > 0) {
@@ -1498,6 +1514,14 @@
     }
 
     const picks = manga.filter((m) => String(m.series) === String(id));
+
+    if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
+      window.PTPTAnalytics.track("view_series_profile", {
+        series_id: String(s.id),
+        series_name: String(s.name || ""),
+        titles_count: String(picks.length),
+      });
+    }
     root.appendChild(
       renderProfileHeader({
         title: s.name,

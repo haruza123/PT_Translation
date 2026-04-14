@@ -85,21 +85,22 @@
       } else if (href.indexOf("reader.html?id=") > -1) {
         track("open_reader", { link_url: href });
       } else if (href.indexOf("translator.html?id=") > -1) {
-        track("view_translator_profile", { link_url: href });
+        track("select_translator_profile", { link_url: href });
       } else if (href.indexOf("genre.html?id=") > -1) {
-        track("view_genre", { link_url: href });
+        track("select_genre", { link_url: href });
       } else if (href.indexOf("series.html?id=") > -1) {
-        track("view_series", { link_url: href });
+        track("select_series", { link_url: href });
       }
     });
   }
 
   loadGtagScript();
   gtag("js", new Date());
-gtag("config", MEASUREMENT_ID);
+  gtag("config", MEASUREMENT_ID, { send_page_view: false });
 
   window.PTPTAnalytics = {
     track: track,
+    pageView: trackPageView,
   };
 
   if (document.readyState === "loading") {
