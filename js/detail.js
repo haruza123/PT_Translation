@@ -98,6 +98,12 @@
 
     document.title = `${found.title} — PT Prajurit Translation`;
 
+    const tr = translators.get(String(found.translator));
+    const sr = series.get(String(found.series));
+    const g = Array.isArray(found.genre)
+      ? found.genre.map((id2) => genres.get(String(id2))).filter(Boolean)
+      : [];
+
     if (window.PTPTAnalytics && typeof window.PTPTAnalytics.track === "function") {
       window.PTPTAnalytics.track("view_manga_detail", {
         manga_id: String(found.id),
@@ -106,12 +112,6 @@
         series_id: sr?.id ? String(sr.id) : "",
       });
     }
-
-    const tr = translators.get(String(found.translator));
-    const sr = series.get(String(found.series));
-    const g = Array.isArray(found.genre)
-      ? found.genre.map((id2) => genres.get(String(id2))).filter(Boolean)
-      : [];
 
     const maxCh = getMaxChapter(found) || 1;
     const chapters = Array.isArray(found.chapters)
@@ -361,7 +361,7 @@
         manga_id: String(found.id),
         manga_title: String(found.title || ""),
         chapter_number: String(currentCh),
-        pages: String(pages),
+        pages: String(pagesPaths.length),
       });
     }
     title.textContent = found.title;

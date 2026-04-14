@@ -539,7 +539,7 @@
         }
       ]
     },
-        {
+    {
       "id": "penyelamatan_sensei_oleh_izuna",
       "title": "Penyelamatan Sensei Oleh Izuna [ki_no_nekko]",
       "cover": "image/penyelamatan_sensei_oleh_izuna/1.webp",
@@ -559,6 +559,66 @@
           "folder": "image/penyelamatan_sensei_oleh_izuna/"
         }
       ]
+    },
+    {
+      "id": "how_rabbit_is_training_en?",
+      "title": "How Rabbit Is Training EN? [Nyangboob (Firewintersnow)]",
+      "cover": "image/how_rabbit_is_training_en/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "en",
+      "description": "How rabbit is training but who is smartest to get Sensei's attention?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 14,
+          "folder": "image/how_rabbit_is_training_en/"
+        }
+      ]
+    },
+    {
+      "id": "wie_trainiert_rabbit_de?",
+      "title": "Wie Trainiert Rabbit DE? [Nyangboob (Firewintersnow)]",
+      "cover": "image/wie_trainiert_rabbit_de/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Wie trainiert das Häschen, aber wer ist am schlauesten, um Senseis Aufmerksamkeit zu erregen?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 14,
+          "folder": "image/wie_trainiert_rabbit_de/"
+        }
+      ]
+    },
+    {
+  "id": "unexpected_hypnotize_en",
+  "title": "Unexpected Hypnotize EN [Nyangboob (Firewintersnow)]",
+  "cover": "image/unexpected_hypnotize_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "en",
+  "description": "Mysterious woman come to Satsuki to offer something that proof to hypnotize people",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 10,
+      "folder": "image/unexpected_hypnotize_en/"
     }
+  ]
+}
   ]
 }

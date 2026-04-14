@@ -9,7 +9,7 @@
 
   const DATA_URL = "data/manga.json";
   const MAX_SUGGEST = 8;
-  const MANGA_PER_PAGE = 20;
+  const MANGA_PER_PAGE = 15;
   let currentMangaLimit = MANGA_PER_PAGE;
 
   const Storage = {
@@ -391,17 +391,19 @@
     }
   }
 
-  function renderMangaGrid(grid, items, catalog, append = false) {
+  function renderMangaGrid(grid, items, catalog, append = false, limitOverride = null) {
     if (!append) grid.innerHTML = "";
     const translators = indexById(catalog.translators);
     const genres = indexById(catalog.genres);
     const series = indexById(catalog.series);
 
-    let toRender = items.slice(0, currentMangaLimit);
+    const limitToUse = limitOverride !== null ? limitOverride : currentMangaLimit;
+
+    let toRender = items.slice(0, limitToUse);
     if (append) {
       toRender = items.slice(
-        currentMangaLimit - MANGA_PER_PAGE,
-        currentMangaLimit,
+        limitToUse - MANGA_PER_PAGE,
+        limitToUse,
       );
       if (toRender.length === 0) return;
     }
@@ -614,6 +616,14 @@
       if (statManga) statManga.textContent = String(filtered.length);
       if (empty) empty.hidden = filtered.length > 0;
       if (!append) syncToUrl();
+      const sentinel = qs("#manga-sentinel");
+      if (sentinel) {
+        if (visible < filtered.length) {
+          sentinel.style.display = "flex";
+        } else {
+          sentinel.style.display = "none";
+        }
+      }
     }
 
     function renderHistory() {
@@ -672,20 +682,22 @@
     render();
 
     const sentinel = qs("#manga-sentinel");
-    if (sentinel && window.IntersectionObserver) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
-            const filtered = filterManga();
-            if (currentMangaLimit < filtered.length) {
-              currentMangaLimit += MANGA_PER_PAGE;
-              render(true);
-            }
-          }
-        },
-        { rootMargin: "200px" },
-      );
-      observer.observe(sentinel);
+    if (sentinel) {
+      sentinel.innerHTML = "";
+      sentinel.style.height = "auto";
+      sentinel.style.display = "flex";
+      sentinel.style.justifyContent = "center";
+      sentinel.style.padding = "20px 0";
+
+      const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+      loadBtn.addEventListener("click", () => {
+        const filtered = filterManga();
+        if (currentMangaLimit < filtered.length) {
+          currentMangaLimit += MANGA_PER_PAGE;
+          render(true);
+        }
+      });
+      sentinel.appendChild(loadBtn);
     }
 
     const onAnyChange = () => render();
@@ -1356,12 +1368,30 @@
       ),
     );
 
+    let worksLimit = MANGA_PER_PAGE;
     const grid = el("div", {
       class: "grid grid--manga",
       style: "margin-top:12px;",
     });
-    renderMangaGrid(grid, works, catalog);
+    renderMangaGrid(grid, works, catalog, false, worksLimit);
     root.appendChild(grid);
+
+    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
+    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    if (worksLimit < works.length) {
+      btnWrap.appendChild(loadBtn);
+      root.appendChild(btnWrap);
+    }
+
+    loadBtn.addEventListener("click", () => {
+      if (worksLimit < works.length) {
+        worksLimit += MANGA_PER_PAGE;
+        renderMangaGrid(grid, works, catalog, true, worksLimit);
+        if (worksLimit >= works.length) {
+          btnWrap.style.display = "none";
+        }
+      }
+    });
   }
 
   function initGenrePage(catalog) {
@@ -1460,12 +1490,30 @@
       ),
     );
 
+    let picksLimit = MANGA_PER_PAGE;
     const grid = el("div", {
       class: "grid grid--manga",
       style: "margin-top:12px;",
     });
-    renderMangaGrid(grid, picks, catalog);
+    renderMangaGrid(grid, picks, catalog, false, picksLimit);
     root.appendChild(grid);
+
+    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
+    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    if (picksLimit < picks.length) {
+      btnWrap.appendChild(loadBtn);
+      root.appendChild(btnWrap);
+    }
+
+    loadBtn.addEventListener("click", () => {
+      if (picksLimit < picks.length) {
+        picksLimit += MANGA_PER_PAGE;
+        renderMangaGrid(grid, picks, catalog, true, picksLimit);
+        if (picksLimit >= picks.length) {
+          btnWrap.style.display = "none";
+        }
+      }
+    });
   }
 
   function initSeriesPage(catalog) {
@@ -1554,12 +1602,30 @@
       ),
     );
 
+    let picksLimit = MANGA_PER_PAGE;
     const grid = el("div", {
       class: "grid grid--manga",
       style: "margin-top:12px;",
     });
-    renderMangaGrid(grid, picks, catalog);
+    renderMangaGrid(grid, picks, catalog, false, picksLimit);
     root.appendChild(grid);
+
+    const btnWrap = el("div", { style: "display:flex;justify-content:center;padding:20px 0;" });
+    const loadBtn = el("button", { class: "btn btn--primary", text: "Muat Lebih Banyak" });
+    if (picksLimit < picks.length) {
+      btnWrap.appendChild(loadBtn);
+      root.appendChild(btnWrap);
+    }
+
+    loadBtn.addEventListener("click", () => {
+      if (picksLimit < picks.length) {
+        picksLimit += MANGA_PER_PAGE;
+        renderMangaGrid(grid, picks, catalog, true, picksLimit);
+        if (picksLimit >= picks.length) {
+          btnWrap.style.display = "none";
+        }
+      }
+    });
   }
 
   async function init() {
