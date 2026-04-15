@@ -457,31 +457,52 @@
       grid.appendChild(
         el("article", { class: "manga-card" }, [
           bookmarkBtn,
-          el("a", { href: mangaHref(m.id), style: "display:block;" }, [
-            el("img", {
-              class: "manga-card__cover",
-              src: m.cover,
-              alt: "",
-              loading: "lazy",
-            }),
+
+          // el("a", { href: mangaHref(m.id), style: "display:block;" }, [
+          //   el("img", {
+          //     class: "manga-card__cover",
+          //     src: m.cover,
+          //     alt: "",
+          //     loading: "lazy",
+          //   }),
+          // ]),
+          el("div", { class: "manga-card__media" }, [
+            el("a", { href: mangaHref(m.id) }, [
+              el("img", {
+                class: "manga-card__cover",
+                src: m.cover,
+                alt: "",
+                loading: "lazy",
+              }),
+            ]),
+            el("div", { class: "badge-group" }, [
+              // 🔥 STATUS BADGE DI COVER
+              el("span", {
+                class: `status-badge-cover status-${status}`,
+                text: status === "ongoing" ? "Ongoing" : "Completed",
+              }),
+
+              // 🔥 AI BADGE (kalau ada)
+              ai
+                ? el("span", {
+                    class: "ai-badge-cover",
+                    text: "AI",
+                  })
+                : null,
+            ]),
           ]),
           el("div", { class: "manga-card__body" }, [
             el("a", { href: mangaHref(m.id) }, [
-              el("h3", { class: "manga-card__title" }, [
-                m.title,
-                el("span", {
-                  class: `status-badge status-${status}`,
-                  text: status === "ongoing" ? "Ongoing" : "Completed",
-                }),
-                // m.language
-                //   ? el("span", {
-                //       class: "lang-badge",
-                //       style: "font-size:0.55rem;",
-                //       text: `[${m.language}]`,
-                //     })
-                //   : null,
-                ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
-              ]),
+              // el("h3", { class: "manga-card__title" }, [
+              //   m.title,
+              //   el("span", {
+              //     class: `status-badge status-${status}`,
+              //     text: status === "ongoing" ? "Ongoing" : "Completed",
+              //   }),
+
+              //   ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
+              // ]),
+              el("h3", { class: "manga-card__title" }, m.title),
             ]),
             el("p", { class: "manga-card__meta", text: metaParts.join(" • ") }),
           ]),
