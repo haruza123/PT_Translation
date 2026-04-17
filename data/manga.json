@@ -1,1802 +1,714 @@
-(function () {
-  "use strict";
-
-  const DATA_URL = "data/manga.json";
-  const MAX_SUGGEST = 8;
-  const MANGA_PER_PAGE = 15;
-  let currentMangaLimit = MANGA_PER_PAGE;
-
-  const Storage = {
-    getHistory: () => JSON.parse(localStorage.getItem("ptpt_history") || "[]"),
-    saveHistory: (mangaId, chapter) => {
-      let h = Storage.getHistory();
-      h = h.filter((x) => x.id !== String(mangaId));
-      h.unshift({
-        id: String(mangaId),
-        chapter: Number(chapter),
-        time: Date.now(),
-      });
-      localStorage.setItem("ptpt_history", JSON.stringify(h.slice(0, 20))); // Keep last 20
+{
+  "ads": {
+    "active": false,
+    "imageUrl": "./image/ads/iklan.png",
+    "linkUrl": "https://mrbigbarbershop.my.id/"
+  },
+  "translators": [
+    {
+      "id": "johan",
+      "name": "Winas Translator",
+      "avatar": "./image/profil/johan.png",
+      "bio": "Wajah lama yang terjebak di pacuan kuda Uma Musume. Sesekali mampir ke Kivotos atau Terra kalau lagi bosan. Sisanya? Sibuk ngurusin OC sendiri yang nggak kelar-kelar.",
+      "facebook": "https://www.facebook.com/johan.winas.2025/",
+      "facebook2": "https://www.facebook.com/profile.php?id=61585006332289",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "tiktok": "",
+      "Official Website": "https://winastranslation.netlify.app/",
+      "trakteer": "https://trakteer.id/oybmjkbtowieibzefkey",
+      "saweria": "https://saweria.co/JohanWinas",
+      "banner": "./image/profil/johanbanner.jpg"
     },
-    getFavorites: () =>
-      JSON.parse(
-        localStorage.getItem("ptpt_favorites") ||
-          '{"manga":[],"translator":[]}',
-      ),
-    toggleFavorite: (type, id) => {
-      let f = Storage.getFavorites();
-      if (!f[type]) f[type] = [];
-      const idx = f[type].indexOf(String(id));
-      if (idx > -1) f[type].splice(idx, 1);
-      else f[type].push(String(id));
-      localStorage.setItem("ptpt_favorites", JSON.stringify(f));
-      return idx === -1;
+    {
+      "id": "suna",
+      "name": "SunaOokamin't Person",
+      "avatar": "./image/profil/suna.jpg",
+      "bio": "Spesialis cerita yang bikin senyum-senyum sendiri. Ahli dalam meracik Romcom & Slice-of-Life dengan penempatan teks yang pas di mata, dan tentunya... pas di hati",
+      "facebook": "https://www.facebook.com/sunaookamin.t.person",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/sunabanner.jpg"
     },
-    isFavorite: (type, id) => {
-      let f = Storage.getFavorites();
-      return f[type] && f[type].includes(String(id));
+    {
+      "id": "asdf",
+      "name": "ASDF1514",
+      "avatar": "./image/profil/asdf.jpg",
+      "bio": "Tukang translate jalur mood. Sudah beroperasi sejak 2025 dengan prinsip: 'Lebih baik telat upload daripada maksain upload tapi nggak ikhlas'",
+      "facebook": "https://www.facebook.com/share/1DhCnW8JsV/",
+      "twitter": "https://x.com/asdefak1514",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/asdfbanner.jpg"
     },
-  };
-
-  window.PTPT_Storage = Storage;
-
-  function renderBookmarkBtn(type, id, onToggle) {
-    const isFav = Storage.isFavorite(type, id);
-    const btn = el("button", {
-      class: `btn-bookmark ${isFav ? "is-active" : ""}`,
-      type: "button",
-      "aria-label": "Bookmark",
-      title: "Tambah ke Favorit",
-      text: isFav ? "♥" : "♡",
-    });
-    btn.dataset.id = id;
-    btn.dataset.type = type;
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const added = Storage.toggleFavorite(type, id);
-      btn.classList.toggle("is-active", added);
-      btn.textContent = added ? "♥" : "♡";
-      if (typeof onToggle === "function") onToggle();
-    });
-    return btn;
-  }
-
-  function renderSkeletonGrid(target, count = 10) {
-    if (!target) return;
-    target.innerHTML = "";
-    for (let i = 0; i < count; i++) {
-      target.appendChild(
-        el("article", { class: "manga-card" }, [
-          el("div", { class: "skeleton" }),
-          el("div", { class: "manga-card__body" }, [
-            el("div", { class: "skeleton-text", style: "width: 100%" }),
-            el("div", { class: "skeleton-text", style: "width: 60%" }),
-          ]),
-        ]),
-      );
+    {
+      "id": "mira",
+      "name": "Mira Turn",
+      "avatar": "./image/profil/mira.jpg",
+      "bio": "Butuh adegan baku hantam atau ketegangan Thriller? Serahin ke sini. Jago nangkep intensitas cerita, lengkap dengan SFX lokal yang tetap terasa 'nendang'.",
+      "facebook": "https://www.facebook.com/mira.turn",
+      "twitter": "",
+      "instagram": "",
+      "website": "",
+      "banner": "./image/profil/miraturn.jpg"
+    },
+    {
+      "id": "Zack",
+      "ai": true,
+      "name": "Suomi Archive by Open Tim Media",
+      "avatar": "./image/suomi.jpeg",
+      "bio": "Jembatan multibahasa. Nggak cuma Inggris, bahasa Jerman pun disikat demi memperluas jangkauan pembaca. Selalu punya rencana buat nambah bahasa baru biar makin ramai.",
+      "facebook": "https://www.facebook.com/SuomiRinaArchive",
+      "twitter": "https://x.com/OpenTimZack",
+      "tiktok": "https://www.tiktok.com/@open_tim_media",
+      "instagram": "",
+      "trakteer": "https://trakteer.id/zackrushky",
+      "Patreon": "https://www.patreon.com/cw/OpenTimMedia?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink",
+      "banner": "./image/profil/suomi.png"
+    },
+    {
+      "id": "KAMI",
+      "name": "KAMI (Komik Animanga Indonesia)",
+      "avatar": "./image/profil/kami.jpg",
+      "bio": "Pejuang kualitas di atas kuantitas. Sudah konsisten di dunia fanpage sejak 2023 dengan misi sederhana: mengubah dialog biasa jadi luar biasa lewat sentuhan terjemahan yang pas.",
+      "facebook": "https://www.facebook.com/share/18KTrckc4H/",
+      "SaluranFB": "https://www.facebook.com/share/17YhVPTH5c/",
+      "twitter": "https://x.com/KAMItranslator ",
+      "Bluesky": "https://bsky.app/profile/kaitranslator39.bsky.social",
+      "ChannelWA": "https://whatsapp.com/channel/0029Vb7DEBjFSAt9Cgo82E09",
+      "banner": "./image/profil/kamibanner.jpg"
     }
-  }
-
-  let dataPromise = null;
-
-  function qs(sel, root = document) {
-    return root.querySelector(sel);
-  }
-
-  function qsa(sel, root = document) {
-    return Array.from(root.querySelectorAll(sel));
-  }
-
-  function el(tag, attrs = {}, children = []) {
-    const node = document.createElement(tag);
-
-    for (const [key, value] of Object.entries(attrs)) {
-      if (value === null || value === undefined) continue;
-      if (key === "class") node.className = String(value);
-      else if (key === "text") node.textContent = String(value);
-      else if (key === "html") node.innerHTML = String(value);
-      else if (key === "value") node.value = String(value);
-      else if (key === "disabled") node.disabled = Boolean(value);
-      else node.setAttribute(key, String(value));
+  ],
+  "genres": [
+    {
+      "id": "romance",
+      "name": "Romance",
+      "image": "https://picsum.photos/seed/ptpt-genre-romance/900/620",
+      "banner": "",
+      "desc": "Bikin baper lewat lika-liku perasaan dan momen manis yang nggak ada habisnya."
+    },
+    {
+      "id": "action",
+      "name": "Action",
+      "image": "https://picsum.photos/seed/ptpt-genre-action/900/620",
+      "desc": "Adu jotos, baku hantam, sampai adegan intens yang bikin adrenalin naik."
+    },
+    {
+      "id": "comedy",
+      "name": "Comedy",
+      "image": "https://picsum.photos/seed/ptpt-genre-comedy/900/620",
+      "desc": "Obat stres! Isinya cuma komedi absurd dan kelakuan karakter yang di luar nalar."
+    },
+    {
+      "id": "fantasy",
+      "name": "Fantasy",
+      "image": "https://picsum.photos/seed/ptpt-genre-fantasy/900/620",
+      "desc": "Jelajahi dunia baru, sihir, dan lore mendalam yang melampaui imajinasi."
+    },
+    {
+      "id": "thriller",
+      "name": "Thriller",
+      "image": "https://picsum.photos/seed/ptpt-genre-thriller/900/620",
+      "desc": "Siap-siap senam jantung. Penuh misteri dan plot twist yang nggak terduga."
+    },
+    {
+      "id": "slice_of_life",
+      "name": "Slice of Life",
+      "image": "https://picsum.photos/seed/ptpt-genre-sol/900/620",
+      "desc": "Cerita santai seputar keseharian yang relatable dan nyaman buat diikuti."
+    },
+    {
+      "id": "drama",
+      "name": "Drama",
+      "image": "https://picsum.photos/seed/ptpt-genre-drama/900/620",
+      "desc": "Konflik batin dan drama emosional yang siap menguras air mata."
     }
-
-    for (const child of Array.isArray(children) ? children : [children]) {
-      if (child === null || child === undefined) continue;
-      if (typeof child === "string")
-        node.appendChild(document.createTextNode(child));
-      else node.appendChild(child);
+  ],
+  "series": [
+    {
+      "id": "uma",
+      "name": "Uma Musume",
+      "image": "https://gaming-cdn.com/images/products/19965/orig/umamusume-pretty-derby-pc-steam-cover.jpg?v=1754407268",
+      "desc": "Lari demi cita-cita, gacha demi cinta. Isinya bukan cuma balapan kuda, tapi perjuangan para horse girl yang siap bikin tabungan tiket gacha kamu kering"
+    },
+    {
+      "id": "bluearchive",
+      "name": "Blue Archive",
+      "image": "https://assets.altarofgaming.com/wp-content/uploads/2021/11/blue-archive-game-cover-altar-of-gaming.jpg",
+      "desc": "Selamat datang di Kivotos, tempat di mana masalah sebesar apa pun bisa selesai dengan peluru, kerja sama tim, dan tentunya... bimbingan dari seorang Sensei idaman"
+    },
+    {
+      "id": "original",
+      "name": "Original Works",
+      "image": "https://picsum.photos/seed/ptpt-series-original/900/620",
+      "desc": "Lahan basah buat imajinasi liar! Kumpulan cerita murni dari otak para translator kami yang kadang jenius, kadang juga di luar nalar."
+    },
+    {
+      "id": "arknights",
+      "name": "Arknights",
+      "image": "https://assets.altarofgaming.com/wp-content/uploads/2021/11/arknights-game-cover-altar-of-gaming-scaled.jpg",
+      "desc": "Terra itu keras, kawan. Isinya kalau nggak perang, ya depresi. Tapi tenang, setidaknya kita punya waifu/husbando taktis buat nemenin nunggu obat sanity penuh."
+    },
+    {
+      "id": "girlsfrontline",
+      "name": "Girls' Frontline",
+      "image": "https://cdn1.epicgames.com/spt-assets/c574157bdd50421da637d65810718bec/girls-frontline-2-exilium-6c144.jpg",
+      "desc": "Kisah para boneka tempur yang nasibnya jauh lebih berat dari tugas sekolahmu. Dunia sudah hancur, tapi strategi dan persahabatan tetap nomor satu."
     }
-
-    return node;
-  }
-
-  function getParams() {
-    return new URLSearchParams(window.location.search);
-  }
-
-  function setParams(nextParams) {
-    const url = new URL(window.location.href);
-    url.search = nextParams.toString();
-    window.history.replaceState({}, "", url);
-  }
-
-  function normalize(str) {
-    return String(str ?? "")
-      .toLowerCase()
-      .trim();
-  }
-
-  function getStatus(manga) {
-    if ("status" in manga) return manga.status;
-    if ("ongoing" in manga) return "ongoing"; // fallback lama
-    return "completed";
-  }
-
-  function hasOwn(obj, key) {
-    return Object.prototype.hasOwnProperty.call(obj ?? {}, key);
-  }
-
-  // AI Art flag:
-  // - Manga-level: set `ai` on the manga object (optional)
-  // - Translator-level default: set `ai` on translator object (applies when manga.ai is not provided)
-  function isAiArt(manga, translatorsById) {
-    if (hasOwn(manga, "ai")) return Boolean(manga?.ai);
-    const tr = translatorsById?.get(String(manga?.translator));
-    return Boolean(tr?.ai);
-  }
-
-  function clampText(input, max = 110) {
-    const s = String(input ?? "").trim();
-    if (s.length <= max) return s;
-    return `${s.slice(0, max - 1).trim()}…`;
-  }
-
-  function readerHref(id, ch) {
-    return `reader.html?id=${encodeURIComponent(id)}&ch=${encodeURIComponent(String(ch))}`;
-  }
-
-  function mangaHref(id) {
-    return `detail.html?id=${encodeURIComponent(id)}`;
-  }
-
-  function translatorHref(id) {
-    return `translator.html?id=${encodeURIComponent(id)}`;
-  }
-
-  function genreHref(id) {
-    return `genre.html?id=${encodeURIComponent(id)}`;
-  }
-
-  function seriesHref(id) {
-    return `series.html?id=${encodeURIComponent(id)}`;
-  }
-
-  function readerHref(id, ch) {
-    return `reader.html?id=${encodeURIComponent(id)}&ch=${encodeURIComponent(String(ch))}`;
-  }
-
-  function getMaxChapter(manga) {
-    const chapters = Array.isArray(manga?.chapters) ? manga.chapters : [];
-    return chapters.reduce((acc, ch) => {
-      const n = Number(ch?.number);
-      return Number.isFinite(n) ? Math.max(acc, n) : acc;
-    }, 0);
-  }
-
-  async function loadData() {
-    if (!dataPromise) {
-      dataPromise = fetch(DATA_URL).then((r) => {
-        if (!r.ok) throw new Error(`Gagal memuat data (${r.status})`);
-        return r.json();
-      });
-    }
-    return dataPromise;
-  }
-
-  function indexById(list) {
-    const map = new Map();
-    for (const item of Array.isArray(list) ? list : []) {
-      if (item?.id) map.set(String(item.id), item);
-    }
-    return map;
-  }
-
-  function countBy(list, key) {
-    const acc = new Map();
-    for (const item of Array.isArray(list) ? list : []) {
-      const v = item?.[key];
-      if (v === null || v === undefined || v === "") continue;
-      acc.set(v, (acc.get(v) || 0) + 1);
-    }
-    return acc;
-  }
-
-  function getGenrePreviewImage(catalog, genreId) {
-    const mangaList = Array.isArray(catalog.manga) ? catalog.manga : [];
-
-    const related = mangaList.filter(
-      (m) =>
-        Array.isArray(m.genre) && m.genre.map(String).includes(String(genreId)),
-    );
-
-    if (related.length > 0) {
-      const pick = related[Math.floor(Math.random() * related.length)];
-      return pick.banner || pick.cover;
-    }
-
-    return null;
-  }
-
-  function countByArray(list, key) {
-    const acc = new Map();
-    for (const item of Array.isArray(list) ? list : []) {
-      const arr = item?.[key];
-      if (!Array.isArray(arr)) continue;
-      for (const v of arr) {
-        if (!v) continue;
-        acc.set(v, (acc.get(v) || 0) + 1);
-      }
-    }
-    return acc;
-  }
-
-  function initYear() {
-    const year = String(new Date().getFullYear());
-    for (const node of qsa("#year")) node.textContent = year;
-  }
-
-  function initNav() {
-    const toggle = qs("[data-nav-toggle]");
-    const menu = qs("[data-nav-menu]");
-    if (!toggle || !menu) return;
-
-    function setOpen(next) {
-      document.body.classList.toggle("is-nav-open", next);
-      toggle.setAttribute("aria-expanded", next ? "true" : "false");
-    }
-
-    toggle.addEventListener("click", () => {
-      setOpen(!document.body.classList.contains("is-nav-open"));
-    });
-
-    document.addEventListener("click", (e) => {
-      const isOpen = document.body.classList.contains("is-nav-open");
-      if (!isOpen) return;
-      if (toggle.contains(e.target) || menu.contains(e.target)) return;
-      setOpen(false);
-    });
-
-    for (const a of qsa(".nav__link", menu)) {
-      a.addEventListener("click", () => setOpen(false));
-    }
-  }
-
-  function initGlobalSearch(catalog, onQuery) {
-    const input = qs("[data-global-search]");
-    const suggestBox = qs("#search-suggest");
-    if (!input || !suggestBox) return;
-
-    const translators = indexById(catalog.translators);
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-
-    function closeSuggest() {
-      suggestBox.classList.remove("is-open");
-      suggestBox.innerHTML = "";
-    }
-
-    function openSuggest(items) {
-      suggestBox.innerHTML = "";
-      if (!items.length) {
-        closeSuggest();
-        return;
-      }
-
-      for (const m of items) {
-        const tr = translators.get(String(m.translator));
-        const meta = tr?.name ? tr.name : "Translator";
-        const row = el(
-          "a",
-          { class: "suggest__item", href: mangaHref(m.id), role: "option" },
-          [
-            el("img", { class: "suggest__thumb", src: m.cover, alt: "" }),
-            el("div", {}, [
-              el("div", { class: "suggest__title" }, [
-                m.title,
-                m.language
-                  ? el("span", {
-                      class: "lang-badge",
-                      style: "font-size:0.55rem;",
-                      text: `[${m.language}]`,
-                    })
-                  : null,
-                isAiArt(m, translators)
-                  ? el("span", { class: "ai-badge", text: "AI Art" })
-                  : null,
-              ]),
-            ]),
-            el("div", { class: "suggest__meta", text: meta }),
-          ],
-        );
-        suggestBox.appendChild(row);
-      }
-      suggestBox.classList.add("is-open");
-    }
-
-    function filterSuggest(q) {
-      const query = normalize(q);
-      if (!query) return [];
-      return manga
-        .filter((m) => normalize(m?.title).includes(query))
-        .slice(0, MAX_SUGGEST);
-    }
-
-    input.addEventListener("input", () => {
-      const q = input.value;
-      openSuggest(filterSuggest(q));
-      if (typeof onQuery === "function") onQuery(q);
-    });
-
-    input.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter") return;
-      const page = document.body?.dataset?.page || "";
-      if (page !== "index") {
-        const params = new URLSearchParams();
-        const q = input.value.trim();
-        if (q) params.set("q", q);
-        window.location.href = params.toString()
-          ? `index.html?${params}#manga`
-          : "index.html#manga";
-      } else {
-        const mangaSec = document.getElementById("manga");
-        if (mangaSec) mangaSec.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-
-    document.addEventListener("click", (e) => {
-      if (suggestBox.contains(e.target) || input.contains(e.target)) return;
-      closeSuggest();
-    });
-
-    input.addEventListener("blur", () => window.setTimeout(closeSuggest, 120));
-  }
-
-  function renderLatest(track, catalog) {
-    if (!track) return;
-    track.innerHTML = "";
-
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const translators = indexById(catalog.translators);
-
-    const sorted = [...manga].reverse();
-    const limit = window.innerWidth < 768 ? 5 : 8;
-    const picks = sorted.slice(0, limit);
-
-    for (const m of picks) {
-      const tr = translators.get(String(m.translator));
-      const meta = tr?.name
-        ? `${tr.name} • Ch ${getMaxChapter(m) || 1}`
-        : `Ch ${getMaxChapter(m) || 1}`;
-      track.appendChild(
-        el("a", { class: "latest", href: mangaHref(m.id) }, [
-          el("div", { class: "latest__inner" }, [
-            el("img", { class: "latest__cover", src: m.cover, alt: "" }),
-            el("div", {}, [
-              el("h3", { class: "latest__title" }, [
-                m.title,
-                m.language
-                  ? el("span", {
-                      class: "lang-badge",
-                      style: "font-size:0.55rem;",
-                      text: `[${m.language}]`,
-                    })
-                  : null,
-                isAiArt(m, translators)
-                  ? el("span", { class: "ai-badge", text: "AI Art" })
-                  : null,
-              ]),
-              el("p", { class: "latest__meta", text: meta }),
-            ]),
-          ]),
-        ]),
-      );
-    }
-  }
-
-  function renderMangaGrid(
-    grid,
-    items,
-    catalog,
-    append = false,
-    limitOverride = null,
-  ) {
-    if (!append) grid.innerHTML = "";
-    const translators = indexById(catalog.translators);
-    const genres = indexById(catalog.genres);
-    const series = indexById(catalog.series);
-
-    const limitToUse =
-      limitOverride !== null ? limitOverride : currentMangaLimit;
-
-    let toRender = items.slice(0, limitToUse);
-    if (append) {
-      toRender = items.slice(limitToUse - MANGA_PER_PAGE, limitToUse);
-      if (toRender.length === 0) return;
-    }
-
-    for (const m of toRender) {
-      const tr = translators.get(String(m.translator));
-      const g = Array.isArray(m.genre)
-        ? m.genre.map((id) => genres.get(String(id))?.name).filter(Boolean)
-        : [];
-      const s = series.get(String(m.series))?.name;
-      // const metaParts = [tr?.name, s, g[0]].filter(Boolean).slice(0, 3);
-      const metaParts = [
-        tr?.name,
-        m.language ? m.language.toUpperCase() : null,
-        s,
-        g[0],
-      ].filter(Boolean);
-      const status = getStatus(m);
-      const ai = isAiArt(m, translators);
-
-      const bookmarkBtn = renderBookmarkBtn("manga", m.id, () => {
-        const favFilter = document.getElementById("filter-favorite");
-        if (favFilter && favFilter.checked) {
-          const reloadEvent = new Event("change");
-          favFilter.dispatchEvent(reloadEvent);
-        }
-      });
-
-      grid.appendChild(
-        el("article", { class: "manga-card" }, [
-          bookmarkBtn,
-
-          // el("a", { href: mangaHref(m.id), style: "display:block;" }, [
-          //   el("img", {
-          //     class: "manga-card__cover",
-          //     src: m.cover,
-          //     alt: "",
-          //     loading: "lazy",
-          //   }),
-          // ]),
-          el("div", { class: "manga-card__media" }, [
-            el("a", { href: mangaHref(m.id) }, [
-              el("img", {
-                class: "manga-card__cover",
-                src: m.cover,
-                alt: "",
-                loading: "lazy",
-              }),
-            ]),
-            el("div", { class: "badge-group" }, [
-              // 🔥 STATUS BADGE DI COVER
-              el("span", {
-                class: `status-badge-cover status-${status}`,
-                text: status === "ongoing" ? "Ongoing" : "Completed",
-              }),
-
-              // 🔥 AI BADGE (kalau ada)
-              ai
-                ? el("span", {
-                    class: "ai-badge-cover",
-                    text: "AI",
-                  })
-                : null,
-            ]),
-          ]),
-          el("div", { class: "manga-card__body" }, [
-            el("a", { href: mangaHref(m.id) }, [
-              // el("h3", { class: "manga-card__title" }, [
-              //   m.title,
-              //   el("span", {
-              //     class: `status-badge status-${status}`,
-              //     text: status === "ongoing" ? "Ongoing" : "Completed",
-              //   }),
-
-              //   ai ? el("span", { class: "ai-badge", text: "AI Art" }) : null,
-              // ]),
-              el("h3", { class: "manga-card__title" }, m.title),
-            ]),
-            el("p", { class: "manga-card__meta", text: metaParts.join(" • ") }),
-          ]),
-        ]),
-      );
-    }
-  }
-
-  function setCount(node, visible, total) {
-    if (!node) return;
-    node.textContent =
-      visible === total ? `${total} judul` : `${visible} dari ${total} judul`;
-  }
-
-  function initIndexPage(catalog) {
-    const latestTrack = qs("#latest-track");
-    const grid = qs("#manga-grid");
-    const empty = qs("#manga-empty");
-    const count = qs("#manga-count");
-
-    const translatorSelect = qs("#filter-translator");
-    const genreSelect = qs("#filter-genre");
-    const seriesSelect = qs("#filter-series");
-    const languageSelect = qs("#filter-language");
-    const favSelect = qs("#filter-favorite");
-    const aiSelect = qs("#filter-ai");
-    const clearBtn = qs("[data-clear-filters]");
-    const searchInput = qs("[data-global-search]");
-
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const translators = Array.isArray(catalog.translators)
-      ? catalog.translators
-      : [];
-    const translatorsById = indexById(translators);
-    const genres = Array.isArray(catalog.genres) ? catalog.genres : [];
-    const series = Array.isArray(catalog.series) ? catalog.series : [];
-
-    const statManga = qs("#stat-manga");
-    const statTranslators = qs("#stat-translators");
-    const statGenres = qs("#stat-genres");
-    const statSeries = qs("#stat-series");
-
-    const adPopup = qs("#ad-popup");
-    const adLink = qs("#ad-popup-link");
-    const adImg = qs("#ad-popup-img");
-    if (adPopup) {
-      document.addEventListener("click", (e) => {
-        if (e.target.closest("[data-ad-close]")) {
-          adPopup.classList.remove("is-open");
-        }
-      });
-    }
-
-    if (adPopup && catalog.ads && catalog.ads.active && catalog.ads.imageUrl) {
-      if (adLink) adLink.href = catalog.ads.linkUrl || "#";
-      if (adImg) adImg.src = catalog.ads.imageUrl;
-      setTimeout(() => {
-        adPopup.classList.add("is-open");
-      }, 500);
-    }
-
-    if (statManga) statManga.textContent = String(manga.length);
-    if (statTranslators)
-      statTranslators.textContent = String(translators.length);
-    if (statGenres) statGenres.textContent = String(genres.length);
-    if (statSeries) statSeries.textContent = String(series.length);
-
-    function fillSelect(node, items, placeholder) {
-      if (!node) return;
-      const current = node.value;
-      node.innerHTML = "";
-      node.appendChild(el("option", { value: "", text: placeholder }));
-      for (const it of items)
-        node.appendChild(el("option", { value: it.id, text: it.name }));
-      if (current) node.value = current;
-    }
-
-    fillSelect(translatorSelect, translators, "Semua translator");
-    fillSelect(genreSelect, genres, "Semua genre");
-    fillSelect(seriesSelect, series, "Semua series");
-
-    // Auto-generate language list from manga data
-    const langsArray = Array.from(
-      new Set(manga.map((m) => m.language).filter(Boolean)),
-    );
-    const languages = langsArray.map((l) => ({ id: l, name: l.toUpperCase() }));
-    fillSelect(languageSelect, languages, "Semua bahasa");
-
-    function applyFromUrl() {
-      const params = getParams();
-      const q = params.get("q") || "";
-      const t = params.get("translator") || "";
-      const g = params.get("genre") || "";
-      const s = params.get("series") || "";
-      const l = params.get("language") || "";
-      const f = params.get("fav") || "";
-      const ai = params.get("ai") || "";
-      if (searchInput) searchInput.value = q;
-      if (translatorSelect) translatorSelect.value = t;
-      if (genreSelect) genreSelect.value = g;
-      if (seriesSelect) seriesSelect.value = s;
-      if (languageSelect) languageSelect.value = l;
-      if (favSelect) favSelect.checked = f === "1";
-      if (aiSelect) aiSelect.value = ai;
-    }
-
-    function syncToUrl() {
-      const params = getParams();
-      const q = searchInput?.value?.trim() || "";
-      const t = translatorSelect?.value || "";
-      const g = genreSelect?.value || "";
-      const s = seriesSelect?.value || "";
-      const l = languageSelect?.value || "";
-      const aiMode = aiSelect?.value || "";
-
-      if (q) params.set("q", q);
-      else params.delete("q");
-
-      if (t) params.set("translator", t);
-      else params.delete("translator");
-
-      if (g) params.set("genre", g);
-      else params.delete("genre");
-
-      if (s) params.set("series", s);
-      else params.delete("series");
-
-      if (l) params.set("language", l);
-      else params.delete("language");
-
-      if (favSelect?.checked) params.set("fav", "1");
-      else params.delete("fav");
-
-      if (aiMode) params.set("ai", aiMode);
-      else params.delete("ai");
-
-      setParams(params);
-    }
-
-    function filterManga() {
-      const q = normalize(searchInput?.value || "");
-      const t = translatorSelect?.value || "";
-      const g = genreSelect?.value || "";
-      const s = seriesSelect?.value || "";
-      const l = languageSelect?.value || "";
-      const isFav = favSelect?.checked || false;
-      const aiMode = aiSelect?.value || "";
-
-      return manga.filter((m) => {
-        if (q && !normalize(m?.title).includes(q)) return false;
-        if (t && String(m?.translator) !== String(t)) return false;
-        if (s && String(m?.series) !== String(s)) return false;
-        if (l && String(m?.language) !== String(l)) return false;
-        if (g) {
-          const arr = Array.isArray(m?.genre) ? m.genre : [];
-          if (!arr.map(String).includes(String(g))) return false;
-        }
-        if (isFav && !Storage.isFavorite("manga", m.id)) return false;
-        // if (aiSelect?.checked && !isAiArt(m, translatorsById)) return false;
-        if (aiMode === "only" && !isAiArt(m, translatorsById)) return false;
-        if (aiMode === "hide" && isAiArt(m, translatorsById)) return false;
-        return true;
-      });
-    }
-
-    function render(append = false) {
-      if (!append) currentMangaLimit = MANGA_PER_PAGE;
-      if (!grid) return;
-      const filtered = filterManga();
-      renderMangaGrid(grid, filtered, catalog, append);
-      let visible = Math.min(currentMangaLimit, filtered.length);
-      setCount(count, visible, filtered.length);
-      if (statManga) statManga.textContent = String(filtered.length);
-      if (empty) empty.hidden = filtered.length > 0;
-      if (!append) syncToUrl();
-      const sentinel = qs("#manga-sentinel");
-      if (sentinel) {
-        if (visible < filtered.length) {
-          sentinel.style.display = "flex";
-        } else {
-          sentinel.style.display = "none";
-        }
-      }
-    }
-
-    function renderHistory() {
-      const historySec = qs("#history");
-      const historyTrack = qs("#history-track");
-      if (!historySec || !historyTrack) return;
-
-      const history = Storage.getHistory();
-      if (!history.length) {
-        historySec.style.display = "none";
-        return;
-      }
-
-      let foundManga = [];
-      for (const h of history) {
-        const m = manga.find((x) => String(x.id) === h.id);
-        if (m) foundManga.push({ ...m, resumeChapter: h.chapter });
-      }
-
-      if (!foundManga.length) {
-        historySec.style.display = "none";
-        return;
-      }
-
-      historySec.style.display = "block";
-      historyTrack.innerHTML = "";
-
-      for (const m of foundManga.slice(0, 8)) {
-        historyTrack.appendChild(
-          el(
-            "a",
-            { class: "history-card", href: readerHref(m.id, m.resumeChapter) },
-            [
-              el("img", {
-                class: "history-card__cover",
-                src: m.cover,
-                alt: "",
-                loading: "lazy",
-              }),
-              el("div", { class: "history-card__body" }, [
-                el("h3", { class: "history-card__title", text: m.title }),
-                el("p", {
-                  class: "history-card__meta",
-                  text: `Chapter ${m.resumeChapter}`,
-                }),
-              ]),
-            ],
-          ),
-        );
-      }
-    }
-
-    renderHistory();
-    renderLatest(latestTrack, catalog);
-    applyFromUrl();
-    render();
-
-    const sentinel = qs("#manga-sentinel");
-    if (sentinel) {
-      sentinel.innerHTML = "";
-      sentinel.style.height = "auto";
-      sentinel.style.display = "flex";
-      sentinel.style.justifyContent = "center";
-      sentinel.style.padding = "20px 0";
-
-      const loadBtn = el("button", {
-        class: "btn btn--primary",
-        text: "Muat Lebih Banyak",
-      });
-      loadBtn.addEventListener("click", () => {
-        const filtered = filterManga();
-        if (currentMangaLimit < filtered.length) {
-          currentMangaLimit += MANGA_PER_PAGE;
-          render(true);
-        }
-      });
-      sentinel.appendChild(loadBtn);
-    }
-
-    const onAnyChange = () => render();
-    translatorSelect?.addEventListener("change", onAnyChange);
-    genreSelect?.addEventListener("change", onAnyChange);
-    seriesSelect?.addEventListener("change", onAnyChange);
-    languageSelect?.addEventListener("change", onAnyChange);
-    favSelect?.addEventListener("change", onAnyChange);
-    aiSelect?.addEventListener("change", onAnyChange);
-    clearBtn?.addEventListener("click", () => {
-      if (translatorSelect) translatorSelect.value = "";
-      if (genreSelect) genreSelect.value = "";
-      if (seriesSelect) seriesSelect.value = "";
-      if (languageSelect) languageSelect.value = "";
-      if (favSelect) favSelect.checked = false;
-      if (aiSelect) aiSelect.checked = false;
-      if (searchInput) searchInput.value = "";
-      render();
-    });
-
-    let searchTimeout;
-    if (searchInput) {
-      searchInput.addEventListener("input", () => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          render();
-        }, 300);
-      });
-    }
-
-    // Home tiles
-    const translatorTiles = qs("#translator-tiles");
-
-    const mangaByTranslator = countBy(manga, "translator");
-
-    function renderTiles(target, items, getHref, getDesc, getCount) {
-      if (!target) return;
-      target.innerHTML = "";
-      for (const it of items.slice(0, 8)) {
-        target.appendChild(
-          el(
-            "a",
-            { class: "entity-card entity-card--mini", href: getHref(it.id) },
-            [
-              el("img", {
-                class: "entity-card__avatar",
-                src:
-                  it.avatar || "https://picsum.photos/seed/ptpt-avatar/200/200",
-                alt: "",
-                loading: "lazy",
-              }),
-              el("div", { class: "entity-card__body" }, [
-                el("div", { class: "entity-card__title", text: it.name }),
-                el("div", { class: "entity-card__desc", text: getDesc(it) }),
-              ]),
-              el("div", {
-                class: "entity-card__count",
-                text: `${getCount(it.id) || 0} karya`,
-              }),
-            ],
-          ),
-        );
-      }
-    }
-
-    renderTiles(
-      translatorTiles,
-      translators,
-      translatorHref,
-      (t) => clampText(t.bio, 56),
-      (id) => mangaByTranslator.get(id),
-    );
-  }
-
-  function ensureModal() {
-    let modal = qs("#tag-modal");
-    if (modal) return modal;
-
-    modal = el(
-      "div",
-      { class: "modal", id: "tag-modal", role: "dialog", "aria-modal": "true" },
-      [
-        el("div", {
-          class: "modal__backdrop",
-          "data-modal-close": "true",
-          "aria-hidden": "true",
-        }),
-        el("div", { class: "modal__panel" }, [
-          el("div", { class: "modal__banner", "aria-hidden": "true" }, [
-            el("img", {
-              class: "modal__banner-img",
-              id: "tag-modal-banner",
-              src: "https://picsum.photos/seed/ptpt-banner/1200/360",
-              alt: "",
-            }),
-            el("div", { class: "modal__banner-overlay" }),
-          ]),
-          el("div", { class: "modal__head" }, [
-            el("div", {}, [
-              el("h3", {
-                class: "modal__title",
-                id: "tag-modal-title",
-                text: "Info",
-              }),
-              el("p", { class: "modal__sub", id: "tag-modal-sub", text: "" }),
-            ]),
-            el("button", {
-              class: "modal__close",
-              type: "button",
-              "data-modal-close": "true",
-              "aria-label": "Tutup",
-              text: "×",
-            }),
-          ]),
-          el("div", { class: "modal__body" }, [
-            el("div", { class: "modal__stats", id: "tag-modal-stats" }),
-            el("div", {
-              class: "modal__thumbs",
-              id: "tag-modal-thumbs",
-              "aria-label": "Preview judul terkait",
-            }),
-            el("div", { class: "modal__actions", id: "tag-modal-actions" }),
-          ]),
-        ]),
+  ],
+  "manga": [
+    {
+      "id": "rikuhachima_the_story",
+      "title": "Rikuhachima The Story [bakheboi]",
+      "rating": "sfw",
+      "cover": "image/Rikuhachima_The_story/ch1/8.webp",
+      "translator": "johan",
+      "genre": [
+        "drama",
+        "thriller"
       ],
-    );
-
-    document.body.appendChild(modal);
-    return modal;
-  }
-
-  function openModal(type, title, sub, bannerSrc, stats, thumbs, actions) {
-    const modal = ensureModal();
-    modal.classList.remove(
-      "modal--translator",
-      "modal--genre",
-      "modal--series",
-    );
-    modal.classList.add("is-open", `modal--${type}`);
-
-    const banner = qs("#tag-modal-banner", modal);
-    const titleEl = qs("#tag-modal-title", modal);
-    const subEl = qs("#tag-modal-sub", modal);
-    const statsEl = qs("#tag-modal-stats", modal);
-    const thumbsEl = qs("#tag-modal-thumbs", modal);
-    const actionsEl = qs("#tag-modal-actions", modal);
-
-    if (banner && bannerSrc) banner.setAttribute("src", bannerSrc);
-    if (titleEl) titleEl.textContent = title;
-    if (subEl) subEl.textContent = sub || "";
-
-    if (statsEl) {
-      statsEl.innerHTML = "";
-      for (const s of stats) {
-        statsEl.appendChild(
-          el("div", { class: "modal__stat" }, [
-            el("p", { class: "modal__stat-label", text: s.label }),
-            el("p", { class: "modal__stat-value", text: s.value }),
-          ]),
-        );
-      }
-    }
-
-    if (thumbsEl) {
-      thumbsEl.innerHTML = "";
-      const items = Array.isArray(thumbs) ? thumbs : [];
-      if (items.length) {
-        for (const t of items.slice(0, 6)) {
-          thumbsEl.appendChild(
-            el("a", { class: "thumb", href: mangaHref(t.id), title: t.title }, [
-              el("img", { class: "thumb__img", src: t.cover, alt: "" }),
-              el("div", { class: "thumb__cap" }, [
-                el("div", { class: "thumb__title", text: t.title }),
-              ]),
-            ]),
-          );
-        }
-      } else {
-        thumbsEl.appendChild(
-          el("div", { class: "empty", style: "margin:0;" }, [
-            "Tidak ada preview judul.",
-          ]),
-        );
-      }
-    }
-
-    if (actionsEl) {
-      actionsEl.innerHTML = "";
-      for (const a of actions) {
-        actionsEl.appendChild(
-          el("a", {
-            class: a.primary ? "btn btn--primary" : "btn btn--ghost",
-            href: a.href,
-            text: a.label,
-          }),
-        );
-      }
-      actionsEl.appendChild(
-        el("button", {
-          class: "btn btn--chip",
-          type: "button",
-          "data-modal-close": "true",
-          text: "Tutup",
-        }),
-      );
-    }
-  }
-
-  function closeModal() {
-    const modal = qs("#tag-modal");
-    if (!modal) return;
-    modal.classList.remove(
-      "is-open",
-      "modal--translator",
-      "modal--genre",
-      "modal--series",
-    );
-  }
-
-  function initModalEvents() {
-    document.addEventListener("click", (e) => {
-      const close = e.target?.closest?.("[data-modal-close]");
-      if (close) closeModal();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-  }
-
-  function makeTagInfoOpener(catalog) {
-    const translators = indexById(catalog.translators);
-    const genres = indexById(catalog.genres);
-    const series = indexById(catalog.series);
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-
-    const mangaByTranslator = countBy(manga, "translator");
-    const mangaBySeries = countBy(manga, "series");
-    const mangaByGenre = countByArray(manga, "genre");
-
-    return function openTagInfo(type, id) {
-      if (!type || !id) return;
-
-      const homeAction = {
-        label: "Home",
-        href: "index.html#home",
-        primary: false,
-      };
-
-      if (type === "translator") {
-        const t = translators.get(String(id));
-        if (!t) return;
-        const works = manga.filter(
-          (m) => String(m.translator) === String(t.id),
-        );
-        openModal(
-          "translator",
-          t.name,
-          t.bio || "",
-          `https://picsum.photos/seed/ptpt-tr-${encodeURIComponent(t.id)}/1200/360`,
-          [
-            { label: "Karya", value: String(works.length) },
-            { label: "Jenis", value: "Translator" },
-            { label: "Aksi", value: "Lihat profil" },
-          ],
-          works,
-          [
-            {
-              label: "Buka halaman",
-              href: translatorHref(t.id),
-              primary: true,
-            },
-            {
-              label: "Lihat katalog",
-              href: `index.html?translator=${encodeURIComponent(t.id)}#manga`,
-              primary: false,
-            },
-            ...(t.facebook
-              ? [{ label: "Facebook", href: t.facebook, primary: false }]
-              : []),
-            homeAction,
-          ],
-        );
-        return;
-      }
-
-      if (type === "series") {
-        const s = series.get(String(id));
-        if (!s) return;
-        const picks = manga.filter((m) => String(m.series) === String(s.id));
-        openModal(
-          "series",
-          s.name,
-          s.desc || "Koleksi judul dalam satu universe/seri.",
-          `https://picsum.photos/seed/ptpt-se-${encodeURIComponent(s.id)}/1200/360`,
-          [
-            { label: "Judul", value: String(picks.length) },
-            { label: "Jenis", value: "Series" },
-            { label: "Aksi", value: "Lihat judul" },
-          ],
-          picks,
-          [
-            { label: "Buka halaman", href: seriesHref(s.id), primary: true },
-            {
-              label: "Filter katalog",
-              href: `index.html?series=${encodeURIComponent(s.id)}#manga`,
-              primary: false,
-            },
-            homeAction,
-          ],
-        );
-        return;
-      }
-
-      if (type === "genre") {
-        const g = genres.get(String(id));
-        if (!g) return;
-        const picks = manga.filter((m) =>
-          Array.isArray(m.genre)
-            ? m.genre.map(String).includes(String(g.id))
-            : false,
-        );
-        openModal(
-          "genre",
-          g.name,
-          g.desc || "",
-          `https://picsum.photos/seed/ptpt-ge-${encodeURIComponent(g.id)}/1200/360`,
-          [
-            { label: "Judul", value: String(picks.length) },
-            { label: "Jenis", value: "Genre" },
-            { label: "Aksi", value: "Telusuri" },
-          ],
-          picks,
-          [
-            { label: "Buka halaman", href: genreHref(g.id), primary: true },
-            {
-              label: "Filter katalog",
-              href: `index.html?genre=${encodeURIComponent(g.id)}#manga`,
-              primary: false,
-            },
-            homeAction,
-          ],
-        );
-      }
-    };
-  }
-
-  function renderEntityHeader(title, desc, backHref) {
-    const actions = el(
-      "div",
-      { style: "display:flex;gap:10px;flex-wrap:wrap;" },
-      [
-        backHref
-          ? el("a", { class: "back", href: backHref, text: "← Kembali" })
-          : null,
-        el("a", { class: "back", href: "index.html#home", text: "Home" }),
-      ].filter(Boolean),
-    );
-
-    return el("div", { class: "card", style: "padding:16px;" }, [
-      el(
-        "div",
+      "series": "bluearchive",
+      "language": "id",
+      "description": "Kivotos telah hancur oleh sebuah tragedi, kini Rikuhachima Aru harus bertahan sekaligus mencari harapan baru.",
+      "chapters": [
         {
-          style:
-            "display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;",
+          "number": 1,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch1/"
         },
-        [
-          el("div", {}, [
-            el("h2", {
-              style: "margin:0;font-weight:900;letter-spacing:-0.02em;",
-              text: title,
-            }),
-            el("p", {
-              style: "margin:8px 0 0;color:var(--muted);",
-              text: desc,
-            }),
-          ]),
-          actions,
-        ],
-      ),
-    ]);
-  }
-
-  function renderProfileHeader({ title, desc, backHref, avatar, image, meta }) {
-    const actions = el(
-      "div",
-      { class: "profile-hero__actions" },
-      [
-        backHref
-          ? el("a", { class: "back", href: backHref, text: "â† Kembali" })
-          : null,
-      ].filter(Boolean),
-    );
-
-    const back = actions.querySelector(".back");
-    if (back) back.textContent = "Kembali";
-
-    const cls = avatar ? "profile-hero" : "profile-hero profile-hero--soft";
-
-    return el("section", { class: cls }, [
-      el("div", { class: "profile-hero__banner", "aria-hidden": "true" }, [
-        image
-          ? el("img", {
-              class: "profile-hero__banner-img",
-              src: image,
-              alt: "",
-            })
-          : null,
-        el("div", { class: "profile-hero__banner-overlay" }),
-      ]),
-      el("div", { class: "profile-hero__inner" }, [
-        avatar
-          ? el("img", { class: "profile-hero__avatar", src: avatar, alt: "" })
-          : null,
-        el(
-          "div",
-          { class: "profile-hero__copy" },
-          [
-            el("h2", { class: "profile-hero__title", text: title }),
-            el("p", { class: "profile-hero__desc", text: desc }),
-            meta
-              ? el("div", { class: "profile-hero__meta", text: meta })
-              : null,
-          ].filter(Boolean),
-        ),
-        actions,
-      ]),
-    ]);
-  }
-
-  function renderTranslatorList(root, translators, countMap) {
-    root.innerHTML = "";
-    const grid = el("div", { class: "grid grid--entities" });
-
-    for (const t of Array.isArray(translators) ? translators : []) {
-      const count = countMap.get(t.id) || 0;
-      grid.appendChild(
-        el("a", { class: "entity-card", href: translatorHref(t.id) }, [
-          el("img", {
-            class: "entity-card__avatar",
-            src: t.avatar || "https://picsum.photos/seed/ptpt-avatar/200/200",
-            alt: "",
-            loading: "lazy",
-          }),
-          el("div", { class: "entity-card__body" }, [
-            el("div", { class: "entity-card__title", text: t.name }),
-            el("div", {
-              class: "entity-card__desc",
-              text: clampText(t.bio, 86),
-            }),
-          ]),
-          el("div", { class: "entity-card__count", text: `${count} karya` }),
-        ]),
-      );
-    }
-
-    root.appendChild(grid);
-  }
-
-  function renderVisualEntityList(
-    root,
-    items,
-    getHref,
-    countMap,
-    kindLabel,
-    catalog,
-  ) {
-    root.innerHTML = "";
-    const grid = el("div", { class: "grid grid--visual" });
-
-    for (const it of Array.isArray(items) ? items : []) {
-      const count = countMap.get(it.id) || 0;
-
-      let imageSrc;
-      let cycleImages = [];
-      if (kindLabel === "Genre" && catalog) {
-        const mangaList = Array.isArray(catalog.manga) ? catalog.manga : [];
-        const related = mangaList.filter(
-          (m) =>
-            Array.isArray(m.genre) &&
-            m.genre.map(String).includes(String(it.id)),
-        );
-        cycleImages = related.map((m) => m.cover).filter(Boolean);
-        imageSrc =
-          cycleImages.length > 0
-            ? cycleImages[0]
-            : it.image ||
-              `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
-      } else {
-        imageSrc =
-          it.image ||
-          `https://picsum.photos/seed/ptpt-${encodeURIComponent(it.id)}/900/620`;
-      }
-
-      const imgEl = el("img", {
-        class: "visual-card__img",
-        src: imageSrc,
-        alt: "",
-        loading: "lazy",
-      });
-      imgEl.style.transition = "opacity 0.4s ease";
-
-      if (cycleImages.length > 1) {
-        imgEl.dataset.cycle = JSON.stringify(cycleImages);
-        imgEl.dataset.cycleIdx = "0";
-      }
-
-      grid.appendChild(
-        el("a", { class: "visual-card", href: getHref(it.id) }, [
-          imgEl,
-          el("div", { class: "visual-card__overlay" }),
-          el("div", { class: "visual-card__body" }, [
-            el("div", { class: "visual-card__kicker", text: kindLabel }),
-            el("div", { class: "visual-card__title", text: it.name }),
-            el("div", {
-              class: "visual-card__desc",
-              text: clampText(it.desc || "", 76),
-            }),
-            el("div", { class: "visual-card__meta" }, [
-              el("span", {
-                class: "visual-card__count",
-                text: `${count} judul`,
-              }),
-            ]),
-          ]),
-        ]),
-      );
-    }
-
-    root.appendChild(grid);
-  }
-
-  function renderSocialLinks(tr) {
-    const socials = [
-      { key: "facebook", label: "Facebook" },
-      { key: "facebook2", label: "Facebook (2)" },
-      { key: "SaluranFB", label: "Saluran Facebook" },
-      { key: "twitter", label: "X / Twitter" },
-      { key: "instagram", label: "Instagram" },
-      { key: "website", label: "Website" },
-      { key: "tiktok", label: "TikTok" },
-      { key: "Official Website", label: "Official Website" },
-      { key: "trakteer", label: "Trakteer" },
-      { key: "saweria", label: "Saweria" },
-      { key: "karyakarsa", label: "KaryaKarsa" },
-      { key: "Patreon", label: "Patreon" },
-      { key: "Bluesky", label: "Bluesky" },
-      { key: "ChannelWA", label: "Channel Whatsapp" },
-      { key: "Linktree", label: "Linktree" },
-    ];
-
-    return socials
-      .filter((s) => tr[s.key]) // hanya yang ada
-      .map((s) =>
-        el("a", {
-          class: "btn btn--ghost",
-          href: tr[s.key],
-          target: "_blank",
-          rel: "noreferrer",
-          text: s.label,
-        }),
-      );
-  }
-
-  function initTranslatorPage(catalog) {
-    const root = qs("#page-root");
-    if (!root) return;
-
-    const params = getParams();
-    const id = params.get("id") || "";
-
-    const translators = Array.isArray(catalog.translators)
-      ? catalog.translators
-      : [];
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const byId = indexById(translators);
-    const mangaByTranslator = countBy(manga, "translator");
-
-    if (!id) {
-      root.appendChild(
-        renderEntityHeader(
-          "Semua Translator",
-          "Klik untuk melihat profil dan karya.",
-          null,
-        ),
-      );
-      const list = el("div", { style: "margin-top:14px;" });
-      root.appendChild(list);
-      renderTranslatorList(list, translators, mangaByTranslator);
-      return;
-    }
-
-    const tr = byId.get(String(id));
-    if (!tr) {
-      root.appendChild(
-        renderEntityHeader(
-          "Translator tidak ditemukan",
-          "ID tidak valid.",
-          "translator.html",
-        ),
-      );
-      return;
-    }
-
-    const works = manga.filter((m) => String(m.translator) === String(id));
-
-    if (
-      window.PTPTAnalytics &&
-      typeof window.PTPTAnalytics.track === "function"
-    ) {
-      window.PTPTAnalytics.track("view_translator_profile", {
-        translator_id: String(tr.id),
-        translator_name: String(tr.name || ""),
-        works_count: String(works.length),
-      });
-    }
-    root.appendChild(
-      renderProfileHeader({
-        title: tr.name,
-        desc: tr.bio || "—",
-        backHref: "translator.html",
-        avatar: tr.avatar,
-        image: tr.banner || tr.avatar,
-        meta: `${works.length} karya`,
-      }),
-    );
-
-    // root.appendChild(
-    //   el(
-    //     "div",
-    //     { class: "modal__actions", style: "margin-top:12px;" },
-    //     [
-    //       el("a", {
-    //         class: "btn btn--primary",
-    //         href: `index.html?translator=${encodeURIComponent(tr.id)}#manga`,
-    //         text: "Lihat di Katalog",
-    //       }),
-    //       tr.facebook
-    //         ? el("a", {
-    //             class: "btn btn--ghost",
-    //             href: tr.facebook,
-    //             target: "_blank",
-    //             rel: "noreferrer",
-    //             text: "Facebook",
-    //           })
-    //         : null,
-    //     ].filter(Boolean),
-    //   ),
-    // );
-    root.appendChild(
-      el("div", { class: "modal__actions", style: "margin-top:12px;" }, [
-        el("a", {
-          class: "btn btn--primary",
-          href: `index.html?translator=${encodeURIComponent(tr.id)}#manga`,
-          text: "Lihat di Katalog",
-        }),
-
-        // 🔥 AUTO SOCIAL LINKS
-        ...renderSocialLinks(tr),
-      ]),
-    );
-
-    root.appendChild(
-      el(
-        "div",
         {
-          style:
-            "margin-top:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;",
+          "number": 2,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch2/"
         },
-        [
-          el("h3", {
-            style: "margin:0;font-weight:900;letter-spacing:-0.02em;",
-            text: "Karya",
-          }),
-          el("p", {
-            style: "margin:0;color:var(--muted);",
-            text: `${works.length} judul`,
-          }),
-        ],
-      ),
-    );
-
-    let worksLimit = MANGA_PER_PAGE;
-    const grid = el("div", {
-      class: "grid grid--manga",
-      style: "margin-top:12px;",
-    });
-    renderMangaGrid(grid, works, catalog, false, worksLimit);
-    root.appendChild(grid);
-
-    const btnWrap = el("div", {
-      style: "display:flex;justify-content:center;padding:20px 0;",
-    });
-    const loadBtn = el("button", {
-      class: "btn btn--primary",
-      text: "Muat Lebih Banyak",
-    });
-    if (worksLimit < works.length) {
-      btnWrap.appendChild(loadBtn);
-      root.appendChild(btnWrap);
-    }
-
-    loadBtn.addEventListener("click", () => {
-      if (worksLimit < works.length) {
-        worksLimit += MANGA_PER_PAGE;
-        renderMangaGrid(grid, works, catalog, true, worksLimit);
-        if (worksLimit >= works.length) {
-          btnWrap.style.display = "none";
-        }
-      }
-    });
-  }
-
-  function initGenrePage(catalog) {
-    const root = qs("#page-root");
-    if (!root) return;
-
-    const params = getParams();
-    const id = params.get("id") || "";
-
-    const genres = Array.isArray(catalog.genres) ? catalog.genres : [];
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const byId = indexById(genres);
-    const mangaByGenre = countByArray(manga, "genre");
-
-    if (!id) {
-      root.appendChild(
-        renderEntityHeader(
-          "Semua Genre",
-          "Klik genre untuk melihat manga terkait.",
-          null,
-        ),
-      );
-      const list = el("div", { style: "margin-top:14px;" });
-      root.appendChild(list);
-      renderVisualEntityList(
-        list,
-        genres,
-        genreHref,
-        mangaByGenre,
-        "Genre",
-        catalog,
-      );
-      return;
-    }
-
-    const g = byId.get(String(id));
-    if (!g) {
-      root.appendChild(
-        renderEntityHeader(
-          "Genre tidak ditemukan",
-          "ID tidak valid.",
-          "genre.html",
-        ),
-      );
-      return;
-    }
-
-    const picks = manga.filter((m) =>
-      Array.isArray(m.genre) ? m.genre.map(String).includes(String(id)) : false,
-    );
-
-    if (
-      window.PTPTAnalytics &&
-      typeof window.PTPTAnalytics.track === "function"
-    ) {
-      window.PTPTAnalytics.track("view_genre_profile", {
-        genre_id: String(g.id),
-        genre_name: String(g.name || ""),
-        titles_count: String(picks.length),
-      });
-    }
-    let heroImage = g.image;
-    if (!heroImage) {
-      if (picks.length > 0) {
-        const randHero = picks[Math.floor(Math.random() * picks.length)];
-        heroImage = randHero.banner || randHero.cover;
-      } else {
-        heroImage = `https://picsum.photos/seed/ptpt-ge-${encodeURIComponent(g.id)}/1200/360`;
-      }
-    }
-
-    root.appendChild(
-      renderProfileHeader({
-        title: g.name,
-        desc: g.desc || "—",
-        backHref: "genre.html",
-        image: heroImage,
-        meta: `${picks.length} judul`,
-      }),
-    );
-
-    root.appendChild(
-      el(
-        "div",
         {
-          style:
-            "margin-top:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;",
+          "number": 3,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch3/"
         },
-        [
-          el("h3", {
-            style: "margin:0;font-weight:900;letter-spacing:-0.02em;",
-            text: "Manga",
-          }),
-          el("p", {
-            style: "margin:0;color:var(--muted);",
-            text: `${picks.length} judul`,
-          }),
-        ],
-      ),
-    );
-
-    let picksLimit = MANGA_PER_PAGE;
-    const grid = el("div", {
-      class: "grid grid--manga",
-      style: "margin-top:12px;",
-    });
-    renderMangaGrid(grid, picks, catalog, false, picksLimit);
-    root.appendChild(grid);
-
-    const btnWrap = el("div", {
-      style: "display:flex;justify-content:center;padding:20px 0;",
-    });
-    const loadBtn = el("button", {
-      class: "btn btn--primary",
-      text: "Muat Lebih Banyak",
-    });
-    if (picksLimit < picks.length) {
-      btnWrap.appendChild(loadBtn);
-      root.appendChild(btnWrap);
-    }
-
-    loadBtn.addEventListener("click", () => {
-      if (picksLimit < picks.length) {
-        picksLimit += MANGA_PER_PAGE;
-        renderMangaGrid(grid, picks, catalog, true, picksLimit);
-        if (picksLimit >= picks.length) {
-          btnWrap.style.display = "none";
-        }
-      }
-    });
-  }
-
-  function initSeriesPage(catalog) {
-    const root = qs("#page-root");
-    if (!root) return;
-
-    const params = getParams();
-    const id = params.get("id") || "";
-
-    const series = Array.isArray(catalog.series) ? catalog.series : [];
-    const manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const byId = indexById(series);
-    const mangaBySeries = countBy(manga, "series");
-
-    if (!id) {
-      root.appendChild(
-        renderEntityHeader(
-          "Semua Series",
-          "Klik series untuk melihat manga terkait.",
-          null,
-        ),
-      );
-      const list = el("div", { style: "margin-top:14px;" });
-      root.appendChild(list);
-      renderVisualEntityList(
-        list,
-        series,
-        seriesHref,
-        mangaBySeries,
-        "Series",
-        catalog,
-      );
-      return;
-    }
-
-    const s = byId.get(String(id));
-    if (!s) {
-      root.appendChild(
-        renderEntityHeader(
-          "Series tidak ditemukan",
-          "ID tidak valid.",
-          "series.html",
-        ),
-      );
-      return;
-    }
-
-    const picks = manga.filter((m) => String(m.series) === String(id));
-
-    if (
-      window.PTPTAnalytics &&
-      typeof window.PTPTAnalytics.track === "function"
-    ) {
-      window.PTPTAnalytics.track("view_series_profile", {
-        series_id: String(s.id),
-        series_name: String(s.name || ""),
-        titles_count: String(picks.length),
-      });
-    }
-    root.appendChild(
-      renderProfileHeader({
-        title: s.name,
-        desc: s.desc || "Daftar manga dalam series ini.",
-        backHref: "series.html",
-        image:
-          s.image ||
-          `https://picsum.photos/seed/ptpt-se-${encodeURIComponent(s.id)}/1200/360`,
-        meta: `${picks.length} judul`,
-      }),
-    );
-
-    root.appendChild(
-      el(
-        "div",
         {
-          style:
-            "margin-top:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;",
+          "number": 4,
+          "extension": ".webp",
+          "pages": 20,
+          "folder": "image/Rikuhachima_The_story/ch4/"
         },
-        [
-          el("h3", {
-            style: "margin:0;font-weight:900;letter-spacing:-0.02em;",
-            text: "Manga",
-          }),
-          el("p", {
-            style: "margin:0;color:var(--muted);",
-            text: `${picks.length} judul`,
-          }),
-        ],
-      ),
-    );
-
-    let picksLimit = MANGA_PER_PAGE;
-    const grid = el("div", {
-      class: "grid grid--manga",
-      style: "margin-top:12px;",
-    });
-    renderMangaGrid(grid, picks, catalog, false, picksLimit);
-    root.appendChild(grid);
-
-    const btnWrap = el("div", {
-      style: "display:flex;justify-content:center;padding:20px 0;",
-    });
-    const loadBtn = el("button", {
-      class: "btn btn--primary",
-      text: "Muat Lebih Banyak",
-    });
-    if (picksLimit < picks.length) {
-      btnWrap.appendChild(loadBtn);
-      root.appendChild(btnWrap);
-    }
-
-    loadBtn.addEventListener("click", () => {
-      if (picksLimit < picks.length) {
-        picksLimit += MANGA_PER_PAGE;
-        renderMangaGrid(grid, picks, catalog, true, picksLimit);
-        if (picksLimit >= picks.length) {
-          btnWrap.style.display = "none";
+        {
+          "number": 5,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/Rikuhachima_The_story/ch5/"
+        },
+        {
+          "number": 6,
+          "extension": ".webp",
+          "pages": 25,
+          "folder": "image/Rikuhachima_The_story/ch6/"
+        },
+        {
+          "number": 7,
+          "extension": ".webp",
+          "pages": 13,
+          "folder": "image/Rikuhachima_The_story/ch7/"
         }
-      }
-    });
-  }
-
-  async function init() {
-    initYear();
-    initNav();
-
-    let catalog;
-    const page = document.body?.dataset?.page || "";
-
-    if (page === "index") {
-      const grid = qs("#manga-grid");
-      if (grid && !catalog) {
-        // If catalog isn't loaded yet
-        renderSkeletonGrid(grid, 20);
-      }
+      ]
+    },
+    {
+      "id": "twin-turbo",
+      "title": "Ganbare Twin Turbo [Ryuu Miyao]",
+      "rating": "sfw",
+      "cover": "image/Ganbare_Twin_Turbo/1.webp",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Setelah dipaksa meminum ramuan aneh...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 20,
+          "startFrom": 1,
+          "folder": "image/Ganbare_Twin_Turbo/"
+        }
+      ]
+    },
+    {
+      "id": "gomen_spe",
+      "title": "Special week dan trainer yang sudah nikah [aizuki_illust]",
+      "rating": "sfw",
+      "cover": "image/Gomen_spe/ch1/1.png",
+      "translator": "johan",
+      "genre": [
+        "drama"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Special Week mengalami konflik batin...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".png",
+          "pages": 11,
+          "startFrom": 1,
+          "folder": "image/Gomen_spe/ch1/"
+        },
+        {
+          "number": 2,
+          "extension": ".png",
+          "pages": 44,
+          "startFrom": 1,
+          "folder": "image/Gomen_spe/ch2/"
+        }
+      ]
+    },
+    {
+      "id": "trainer_kumpul_kebo",
+      "title": "Kehebohan pagi di tahun baru [hideim]",
+      "rating": "sfw",
+      "cover": "image/Kehebohan_pagi_di_tahun_baru/1.png",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Pesta tahun baru berakhir kacau...",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".png",
+          "pages": 16,
+          "startFrom": 1,
+          "folder": "image/Kehebohan_pagi_di_tahun_baru/"
+        }
+      ]
+    },
+    {
+      "id": "mon3tr",
+      "title": "Arknights-Mon3tr [Tanoy KTB]",
+      "rating": "sfw",
+      "cover": "image/mon3tr/1.webp",
+      "translator": "johan",
+      "genre": [
+        "comedy"
+      ],
+      "series": "arknights",
+      "language": "id",
+      "description": "Kisah munculnya Mon3tr di Rhodes Island",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 17,
+          "folder": "image/mon3tr/"
+        }
+      ]
+    },
+    {
+      "id": "akane_birthday",
+      "title": "Akane Birthday [nyangboob]",
+      "rating": "sfw",
+      "cover": "image/Akanes_Birthday/1.webp",
+      "translator": "Zack",
+      "genre": [
+        "comedy"
+      ],
+      "ai": true,
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Happy April's fools day, Akane?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 6,
+          "folder": "image/Akanes_Birthday/"
+        }
+      ]
+    },
+    {
+      "id": "paparazi_in_kivotos",
+      "title": "Paparazi In Kivotos [nyangboob]",
+      "rating": "sfw",
+      "cover": "image/paparazi_in_kivotos/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Blue Archive | Tsukatsuki Rio and Sensei get Paparazi by Chronos Media",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/paparazi_in_kivotos/"
+        }
+      ]
+    },
+    {
+      "id": "kehidupan_random_para_uma",
+      "title": "Kehidupan Random Para Uma [ル一キ一ドリフト]",
+      "status": "ongoing",
+      "rating": "sfw",
+      "cover": "image/kehidupan_random_para_uma/1.jpg",
+      "translator": "johan",
+      "genre": [
+        "slice_of_life",
+        "comedy"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Ya namanya juga jaran, kadang ada aja kelakukannya",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/kehidupan_random_para_uma/Ch1/"
+        },
+        {
+          "number": 2,
+          "extension": ".webp",
+          "pages": 49,
+          "folder": "image/kehidupan_random_para_uma/Ch2/"
+        },
+        {
+          "number": 3,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/kehidupan_random_para_uma/Ch3/"
+        },
+        {
+          "number": 4,
+          "extension": ".webp",
+          "pages": 12,
+          "folder": "image/kehidupan_random_para_uma/Ch4/"
+        },
+        {
+          "number": 5,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/kehidupan_random_para_uma/Ch5/"
+        },
+        {
+          "number": 6,
+          "extension": ".webp",
+          "pages": 16,
+          "folder": "image/kehidupan_random_para_uma/Ch6/"
+        },
+        {
+          "number": 7,
+          "extension": ".webp",
+          "pages": 13,
+          "folder": "image/kehidupan_random_para_uma/Ch7/"
+        },
+        {
+          "number": 8,
+          "extension": ".webp",
+          "pages": 16,
+          "folder": "image/kehidupan_random_para_uma/Ch8/"
+        }
+      ]
+    },
+    {
+      "id": "how_to_tame_pack_en",
+      "title": "How To Tame Pack EN [nyangboob]",
+      "cover": "image/how_to_tame_pack_en/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Sensei is learning hw to tame Kemonomimi like Hibiki, could he do it?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/how_to_tame_pack_en/"
+        }
+      ]
+    },
+    {
+      "id": "wie_du_dein_rudel_bändigt_de",
+      "title": "Wie du Dein rudel Bändigt DE [nyangboob]",
+      "cover": "image/how_to_tame_pack_de/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Sensei lernt gerade, wie man Kemonomimi zähmt, so wie Hibiki. Ob er das wohl schafft?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 7,
+          "folder": "image/how_to_tame_pack_de/"
+        }
+      ]
+    },
+    {
+      "id": "sang_penyihir_malapetaka",
+      "title": "Sang Penyihir Malapetaka",
+      "cover": "image/sang_penyihir_malapetaka/1.webp",
+      "translator": "KAMI",
+      "genre": [
+        "fantasy",
+        "comedy"
+      ],
+      "series": "original",
+      "language": "id",
+      "description": "Velvet Excidia adalah penyihir pengembara yang sering muncul di berbagai wilayah Horizent tanpa tujuan jelas. Ia dikenal memiliki kekuatan untuk memberantas korupsi, tetapi juga sering dikaitkan dengan kehancuran dan fenomena aneh di tempat yang ia datangi.",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 4,
+          "folder": "image/sang_penyihir_malapetaka/"
+        }
+      ]
+    },
+    {
+      "id": "blue_archive_sei_o_mika_ga_shiawase_ni_narenai_riyuu_",
+      "title": "Mengapa Misono Mika Tidak Boleh Bahagia [nichigeckoh]",
+      "cover": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/1.webp",
+      "translator": "asdf",
+      "genre": [
+        "drama",
+        "romance"
+      ],
+      "series": "original",
+      "language": "id",
+      "description": "Berdasarkan alur cerita utama Blue Archive, khususnya Eden Treaty Volume, Mika Misono dan Seia Yurizono dari Trinity General School tidak dapat menemukan kebahagiaan yang hakiki karena beban politik, trauma masa lalu, dan keputusan yang mereka ambil",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 37,
+          "folder": "image/Blue_Archive_Sei_O_Mika_ga_Shiawase_ni_Narenai_Riyuu/"
+        }
+      ]
+    },
+    {
+      "id": "präsentationspanne_de",
+      "title": "Präsentationspanne DE [Nyangboob]",
+      "cover": "image/Präsentationspanne_DE/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Hat sie vergessen, das Bild zu ändern?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 8,
+          "folder": "image/Präsentationspanne_DE/"
+        }
+      ]
+    },
+    {
+      "id": "presentation_accident_en",
+      "title": "Presentation Accident EN [Nyangboob]",
+      "cover": "image/Presentation_Accident_EN/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "Did she forgot to change the image?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 8,
+          "folder": "image/Presentation_Accident_EN/"
+        }
+      ]
+    },
+    {
+      "id": "penyelamatan_sensei_oleh_izuna",
+      "title": "Penyelamatan Sensei Oleh Izuna [ki_no_nekko]",
+      "cover": "image/penyelamatan_sensei_oleh_izuna/1.webp",
+      "translator": "johan",
+      "genre": [
+        "drama",
+        "thriller"
+      ],
+      "series": "bluearchive",
+      "language": "id",
+      "description": "Izuna bergegas menyusup ke markas musuh untuk menyelamatkan Sensei yang diculik. Namun, sebuah jebakan psikologis yang licik dari bos Kaiser membuat garis antara kawan dan lawan menjadi kabur. Sebuah kisah tragis tentang kesetiaan, rasa bersalah, dan harga yang harus dibayar dari sebuah kesalahan fatal",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 15,
+          "folder": "image/penyelamatan_sensei_oleh_izuna/"
+        }
+      ]
+    },
+    {
+      "id": "how_rabbit_is_training_en?",
+      "title": "How Rabbit Is Training EN? [Nyangboob (Firewintersnow)]",
+      "cover": "image/how_rabbit_is_training_en/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "En",
+      "description": "How rabbit is training but who is smartest to get Sensei's attention?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 14,
+          "folder": "image/how_rabbit_is_training_en/"
+        }
+      ]
+    },
+    {
+      "id": "wie_trainiert_rabbit_de?",
+      "title": "Wie Trainiert Rabbit DE? [Nyangboob (Firewintersnow)]",
+      "cover": "image/wie_trainiert_rabbit_de/1.webp",
+      "translator": "Zack",
+      "ai": true,
+      "genre": [
+        "comedy"
+      ],
+      "series": "bluearchive",
+      "language": "de",
+      "description": "Wie trainiert das Häschen, aber wer ist am schlauesten, um Senseis Aufmerksamkeit zu erregen?",
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".webp",
+          "pages": 14,
+          "folder": "image/wie_trainiert_rabbit_de/"
+        }
+      ]
+    },
+    {
+  "id": "unexpected_hypnotize_en",
+  "title": "Unexpected Hypnotize EN [Nyangboob (Firewintersnow)]",
+  "cover": "image/unexpected_hypnotize_en/1.webp",
+  "translator": "Zack",
+  "ai": true,
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Mysterious woman come to Satsuki to offer something that proof to hypnotize people",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 10,
+      "folder": "image/unexpected_hypnotize_en/"
     }
-
-    try {
-      catalog = await loadData();
-    } catch (err) {
-      console.error(err);
-      return;
+  ]
+},
+{
+  "id": "17_years_of_promise_for_a_lie_en",
+  "title": "17 Years Of Promise For A Lie EN [Firewintersnow]",
+  "cover": "image/17_years_of_promise_for_a_lie_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Tanga Ibuki waiting her final that just another lie from Sensei",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 12,
+      "folder": "image/17_years_of_promise_for_a_lie_en/"
     }
-
-    const _manga = Array.isArray(catalog.manga) ? catalog.manga : [];
-    const _countsT = countBy(_manga, "translator");
-    const _countsS = countBy(_manga, "series");
-    const _countsG = countByArray(_manga, "genre");
-
-    catalog.translators = (catalog.translators || []).filter(
-      (t) => _countsT.get(t.id) > 0,
-    );
-    catalog.series = (catalog.series || []).filter(
-      (s) => _countsS.get(s.id) > 0,
-    );
-    catalog.genres = (catalog.genres || []).filter(
-      (g) => _countsG.get(g.id) > 0,
-    );
-
-    initModalEvents();
-
-    setInterval(() => {
-      document.querySelectorAll("img[data-cycle]").forEach((img) => {
-        try {
-          const arr = JSON.parse(img.dataset.cycle);
-          if (arr && arr.length > 1) {
-            let idx = parseInt(img.dataset.cycleIdx || "0", 10);
-            idx = (idx + 1) % arr.length;
-            img.dataset.cycleIdx = String(idx);
-            img.style.opacity = "0.6";
-            setTimeout(() => {
-              img.src = arr[idx];
-              img.style.opacity = "1";
-            }, 300);
-          }
-        } catch (e) {}
-      });
-    }, 5000);
-    const openTagInfo = makeTagInfoOpener(catalog);
-
-    document.addEventListener("click", (e) => {
-      const btn = e.target?.closest?.("[data-tag][data-id]");
-      if (!btn) return;
-      e.preventDefault();
-      openTagInfo(btn.getAttribute("data-tag"), btn.getAttribute("data-id"));
-    });
-
-    initGlobalSearch(catalog, page === "index" ? () => {} : null);
-
-    if (page === "index") initIndexPage(catalog);
-    if (page === "translator") initTranslatorPage(catalog);
-    if (page === "genre") initGenrePage(catalog);
-    if (page === "series") initSeriesPage(catalog);
-
-    window.PTPT = window.PTPT || {};
-    window.PTPT.openTagInfo = openTagInfo;
-  }
-
-  if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", init);
-  else init();
-})();
+  ]
+},
+{
+  "id": "17_jahre_voller_versprechungen,_die_sich_als_lüge_herausstellten_de",
+  "title": "17 Jahre Voller Versprechungen, Die Sich Als Lüge Herausstellten DE [Firewintersnow]",
+  "cover": "image/17_jahre_voller_versprechungen,_die_sich_als_lüge_herausstellten_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Tanga Ibuki wartet auf ihre Abschlussprüfung – nur eine weitere Lüge von Sensei",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 12,
+      "folder": "image/17_jahre_voller_versprechungen,_die_sich_als_lüge_herausstellten_de/"
+    }
+  ]
+},
+{
+  "id": "shupogaki_misono_mika_de",
+  "title": "Shupogaki Misono Mika DE [Firewintersnow]",
+  "cover": "image/shupogaki_misono_mika_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "id",
+  "description": "Tschu~ tschu~ Hier ist Misono Mika, ich möchte von Sensei gelobt und geliebt werden.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/shupogaki_misono_mika_de/"
+    }
+  ]
+},
+{
+  "id": "shupogaki_misono_mika_en",
+  "title": "Shupogaki Misono Mika EN [Firewintersnow]",
+  "cover": "image/shupogaki_misono_mika_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Choo~ Choo~ Misono Mika here, I want praise and love by Sensei.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/shupogaki_misono_mika_en/"
+    }
+  ]
+}
+  ]
+}
