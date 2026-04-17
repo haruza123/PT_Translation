@@ -629,6 +629,46 @@
       "folder": "image/unexpected_hypnotize_en/"
     }
   ]
+},
+{
+  "id": "shupogaki_misono_mika_de",
+  "title": "Shupogaki Misono Mika DE [Firewintersnow]",
+  "cover": "image/shupogaki_misono_mika_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "id",
+  "description": "Tschu~ tschu~ Hier ist Misono Mika, ich möchte von Sensei gelobt und geliebt werden.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/shupogaki_misono_mika_de/"
+    }
+  ]
+},
+{
+  "id": "shupogaki_misono_mika_en",
+  "title": "Shupogaki Misono Mika EN [Firewintersnow]",
+  "cover": "image/shupogaki_misono_mika_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Choo~ Choo~ Misono Mika here, I want praise and love by Sensei.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/shupogaki_misono_mika_en/"
+    }
+  ]
 }
   ]
 }
