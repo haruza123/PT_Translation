@@ -1311,6 +1311,7 @@
       { key: "Patreon", label: "Patreon" },
       { key: "Bluesky", label: "Bluesky" },
       { key: "ChannelWA", label: "Channel Whatsapp" },
+      { key: "Linktree", label: "Linktree" },
     ];
 
     return socials
