@@ -1,9 +1,3 @@
-/* PT Prajurit Translation — main.js
-   - Navbar: hamburger, global search + suggestions
-   - Index: latest update, manga grid, filter (translator/genre/series), tiles
-   - Translator/Genre/Series pages: list + detail views (?id=)
-*/
-
 (function () {
   "use strict";
 
