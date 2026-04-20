@@ -245,6 +245,26 @@
     );
   }
 
+  const DEFAULT_READER_SETTINGS = {
+    direction: "vertical",
+    fit: "width",
+    gap: "normal",
+    brightness: 100,
+    hideBarOnScroll: false,
+  };
+
+  function readReaderSettings() {
+    try {
+      const raw = localStorage.getItem("ptpt_reader_settings");
+      const parsed = raw ? JSON.parse(raw) : {};
+      return { ...DEFAULT_READER_SETTINGS, ...parsed };
+    } catch {
+      return { ...DEFAULT_READER_SETTINGS };
+    }
+  }
+
+  let readerSettingsCache = { ...DEFAULT_READER_SETTINGS };
+
   function picsumPageSrc(mangaId, chapterNumber, pageIndex) {
     const seed = encodeURIComponent(
       `ptpt-${mangaId}-ch${chapterNumber}-p${pageIndex}`,
@@ -297,56 +317,203 @@
       window.PTPT_Storage.saveHistory(id, currentCh);
     }
 
+    const mainReader = qs("main.reader");
+    const readerBar = qs("#reader-bar");
+    const scrim = qs("#reader-settings-scrim");
+
+    let lastWinScroll = window.scrollY;
+    let lastPageScroll = 0;
+    let barHideDirKey = "";
+
     function applyReaderSettings() {
-      const settings = JSON.parse(localStorage.getItem("ptpt_reader_settings") || '{"direction":"vertical","fit":"width"}');
+      readerSettingsCache = readReaderSettings();
+      const s = readerSettingsCache;
+
       pagesRoot.className = "container reader__pages";
-      if (settings.direction === "horizontal") {
-          pagesRoot.classList.add("reader-mode--horizontal");
+      if (s.direction === "horizontal") {
+        pagesRoot.classList.add("reader-mode--horizontal");
       }
-      if (settings.fit === "width") {
-          pagesRoot.classList.add("reader-fit--width");
-      } else if (settings.fit === "height") {
-          pagesRoot.classList.add("reader-fit--height");
+      if (s.fit === "width") {
+        pagesRoot.classList.add("reader-fit--width");
+      } else if (s.fit === "height") {
+        pagesRoot.classList.add("reader-fit--height");
       }
-      
+      if (s.gap === "none") {
+        pagesRoot.classList.add("reader-gap--none");
+      } else if (s.gap === "wide") {
+        pagesRoot.classList.add("reader-gap--wide");
+      } else {
+        pagesRoot.classList.add("reader-gap--normal");
+      }
+
+      const b = Math.min(100, Math.max(60, Number(s.brightness) || 100));
+      if (mainReader) {
+        mainReader.style.setProperty("--reader-brightness", String(b / 100));
+      }
+
       const selectDir = document.getElementById("setting-direction");
       const selectFit = document.getElementById("setting-fit");
-      if (selectDir) selectDir.value = settings.direction;
-      if (selectFit) selectFit.value = settings.fit;
+      const selectGap = document.getElementById("setting-gap");
+      const rangeBr = document.getElementById("setting-brightness");
+      const valBr = document.getElementById("setting-brightness-val");
+      const chkHide = document.getElementById("setting-hide-bar");
+      if (selectDir) selectDir.value = s.direction;
+      if (selectFit) selectFit.value = s.fit;
+      if (selectGap) selectGap.value = s.gap;
+      if (rangeBr) rangeBr.value = String(b);
+      if (valBr) valBr.textContent = `${Math.round(b)}%`;
+      if (chkHide) chkHide.checked = Boolean(s.hideBarOnScroll);
+
+      if (readerBar && !s.hideBarOnScroll) {
+        readerBar.classList.remove("is-hidden");
+      }
+
+      lastWinScroll = window.scrollY;
+      lastPageScroll = pagesRoot.scrollLeft;
+      barHideDirKey = "";
+    }
+
+    function persistSettingsFromForm() {
+      const selectDir = document.getElementById("setting-direction");
+      const selectFit = document.getElementById("setting-fit");
+      const selectGap = document.getElementById("setting-gap");
+      const rangeBr = document.getElementById("setting-brightness");
+      const chkHide = document.getElementById("setting-hide-bar");
+      const settings = {
+        direction: selectDir?.value || "vertical",
+        fit: selectFit?.value || "width",
+        gap: selectGap?.value || "normal",
+        brightness: rangeBr ? Number(rangeBr.value) : 100,
+        hideBarOnScroll: chkHide ? chkHide.checked : false,
+      };
+      localStorage.setItem("ptpt_reader_settings", JSON.stringify(settings));
+      applyReaderSettings();
+    }
+
+    function setSettingsOpen(open) {
+      const btnSettings = document.getElementById("btn-reader-settings");
+      const modalSettings = document.getElementById("reader-settings-modal");
+      if (!modalSettings) return;
+      modalSettings.classList.toggle("is-open", open);
+      if (btnSettings) btnSettings.setAttribute("aria-expanded", open ? "true" : "false");
+      if (readerBar) {
+        readerBar.classList.toggle("reader-bar--settings-open", open);
+        readerBar.classList.remove("is-hidden");
+      }
+      if (scrim) {
+        scrim.hidden = !open;
+        scrim.setAttribute("aria-hidden", open ? "false" : "true");
+      }
+      document.body.classList.toggle("reader-settings-open", open);
+      if (open) {
+        try {
+          modalSettings.focus({ preventScroll: true });
+        } catch {
+          modalSettings.focus();
+        }
+      }
     }
 
     applyReaderSettings();
-    window.addEventListener("storage", applyReaderSettings); // listen to changes from modal
-    
-    // Add logic for Settings Modal
+
+    window.addEventListener("storage", (e) => {
+      if (e.key === "ptpt_reader_settings") applyReaderSettings();
+    });
+
     const btnSettings = document.getElementById("btn-reader-settings");
     const modalSettings = document.getElementById("reader-settings-modal");
     if (btnSettings && modalSettings) {
-        btnSettings.addEventListener("click", () => {
-             modalSettings.classList.toggle("is-open");
-        });
-        document.addEventListener("click", (e) => {
-             if (!e.target.closest("#btn-reader-settings") && !e.target.closest("#reader-settings-modal")) {
-                 modalSettings.classList.remove("is-open");
-             }
-        });
-        
-        const saveSettings = () => {
-            const selectDir = document.getElementById("setting-direction");
-            const selectFit = document.getElementById("setting-fit");
-            const settings = {
-                direction: selectDir.value,
-                fit: selectFit.value
-            };
-            localStorage.setItem("ptpt_reader_settings", JSON.stringify(settings));
-            applyReaderSettings();
-        };
+      btnSettings.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setSettingsOpen(!modalSettings.classList.contains("is-open"));
+      });
 
-        const selectDir = document.getElementById("setting-direction");
-        const selectFit = document.getElementById("setting-fit");
-        if (selectDir) selectDir.addEventListener("change", saveSettings);
-        if (selectFit) selectFit.addEventListener("change", saveSettings);
+      if (scrim) {
+        scrim.addEventListener("click", () => setSettingsOpen(false));
+      }
+
+      document.addEventListener("click", (e) => {
+        if (!modalSettings.classList.contains("is-open")) return;
+        if (
+          e.target.closest("#btn-reader-settings") ||
+          e.target.closest("#reader-settings-modal")
+        ) {
+          return;
+        }
+        setSettingsOpen(false);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modalSettings.classList.contains("is-open")) {
+          setSettingsOpen(false);
+        }
+      });
+
+      const saveSettings = () => persistSettingsFromForm();
+
+      const selectDir = document.getElementById("setting-direction");
+      const selectFit = document.getElementById("setting-fit");
+      const selectGap = document.getElementById("setting-gap");
+      const rangeBr = document.getElementById("setting-brightness");
+      const chkHide = document.getElementById("setting-hide-bar");
+      const btnReset = document.getElementById("reader-settings-reset");
+
+      if (selectDir) selectDir.addEventListener("change", saveSettings);
+      if (selectFit) selectFit.addEventListener("change", saveSettings);
+      if (selectGap) selectGap.addEventListener("change", saveSettings);
+      if (chkHide) chkHide.addEventListener("change", saveSettings);
+      if (rangeBr) {
+        rangeBr.addEventListener("input", () => {
+          const valBr = document.getElementById("setting-brightness-val");
+          if (valBr) valBr.textContent = `${rangeBr.value}%`;
+          saveSettings();
+        });
+      }
+      if (btnReset) {
+        btnReset.addEventListener("click", () => {
+          localStorage.setItem(
+            "ptpt_reader_settings",
+            JSON.stringify({ ...DEFAULT_READER_SETTINGS }),
+          );
+          applyReaderSettings();
+        });
+      }
     }
+
+    function readerBarScrollHide() {
+      if (!readerBar || !readerSettingsCache.hideBarOnScroll) {
+        lastWinScroll = window.scrollY;
+        lastPageScroll = pagesRoot.scrollLeft;
+        return;
+      }
+      const horizontal = readerSettingsCache.direction === "horizontal";
+      const dirKey = horizontal ? "h" : "v";
+      if (barHideDirKey !== dirKey) {
+        lastWinScroll = window.scrollY;
+        lastPageScroll = pagesRoot.scrollLeft;
+        barHideDirKey = dirKey;
+      }
+      if (horizontal) {
+        const x = pagesRoot.scrollLeft;
+        const delta = x - lastPageScroll;
+        if (x < 20) readerBar.classList.remove("is-hidden");
+        else if (delta > 14) readerBar.classList.add("is-hidden");
+        else if (delta < -14) readerBar.classList.remove("is-hidden");
+        lastPageScroll = x;
+      } else {
+        const y = window.scrollY;
+        const delta = y - lastWinScroll;
+        if (y < 48) readerBar.classList.remove("is-hidden");
+        else if (delta > 10) readerBar.classList.add("is-hidden");
+        else if (delta < -10) readerBar.classList.remove("is-hidden");
+        lastWinScroll = y;
+      }
+    }
+
+    window.addEventListener("scroll", readerBarScrollHide, { passive: true });
+    pagesRoot.addEventListener("scroll", readerBarScrollHide, {
+      passive: true,
+    });
     
     const maxCh = getMaxChapter(found) || 1;
     let pagesPaths = [];

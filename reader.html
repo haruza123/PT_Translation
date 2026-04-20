@@ -76,7 +76,7 @@
           <a class="back" href="index.html#manga" id="reader-back">← Kembali</a>
 
           <div class="reader__head-row">
-            <div>
+            <div class="reader__head-text">
               <h1 class="reader__title" id="reader-title">Reader</h1>
               <p class="reader__meta" id="reader-meta"></p>
             </div>
@@ -92,50 +92,110 @@
 
       <!-- Floating Reader Bar -->
       <div class="reader-bar" id="reader-bar">
-        <div class="container reader-bar__inner">
-          <a class="btn btn--chip" href="#" id="bar-back">← Kembali</a>
+        <div class="reader-bar__inner">
+          <a class="btn btn--chip reader-bar__back" href="#" id="bar-back"
+            >← Kembali</a
+          >
 
-          <div class="reader-bar__controls">
-            <label class="visually-hidden" for="bar-chapter"
-              >Pilih chapter</label
-            >
-            <select class="select" id="bar-chapter"></select>
-            <div class="reader-bar__counter" id="bar-counter">1 / 1</div>
-            <div style="position: relative">
+          <div class="reader-bar__chapter-wrap">
+            <label class="visually-hidden" for="bar-chapter">Pilih chapter</label>
+            <select class="select reader-bar__chapter" id="bar-chapter"></select>
+          </div>
+
+          <div class="reader-bar__actions">
+            <div class="reader-bar__counter" id="bar-counter" aria-live="polite">
+              1 / 1
+            </div>
+            <div class="reader-bar__settings-wrap">
               <button
-                class="btn btn--chip"
+                class="reader-bar__gear"
                 type="button"
                 id="btn-reader-settings"
-                aria-label="Pengaturan"
-                style="
-                  padding: 0 10px;
-                  font-size: 1.2rem;
-                  background: transparent;
-                  border: none;
-                "
+                aria-label="Pengaturan baca"
+                aria-expanded="false"
+                aria-haspopup="dialog"
+                aria-controls="reader-settings-modal"
               >
-                ⚙️
+                <span class="reader-bar__gear-icon" aria-hidden="true">⚙</span>
               </button>
-              <div class="settings-modal" id="reader-settings-modal">
+
+              <div
+                class="settings-modal"
+                id="reader-settings-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="reader-settings-title"
+                tabindex="-1"
+              >
+                <h2 class="settings-modal__title" id="reader-settings-title">
+                  Pengaturan baca
+                </h2>
+
                 <div class="settings-group">
-                  <label for="setting-direction">Arah Baca</label>
+                  <label for="setting-direction">Arah baca</label>
                   <select class="select" id="setting-direction">
-                    <option value="vertical">Vertikal (Scroll)</option>
-                    <!-- <option value="horizontal">Horizontal (Geser)</option> -->
+                    <option value="vertical">Vertikal (gulir)</option>
+                    <option value="horizontal">Horizontal (geser kiri-kanan)</option>
                   </select>
                 </div>
                 <div class="settings-group">
-                  <label for="setting-fit">Ukuran Halaman</label>
+                  <label for="setting-fit">Skala halaman</label>
                   <select class="select" id="setting-fit">
-                    <option value="width">Lebar Penuh (Fit Width)</option>
-                    <option value="height">Tinggi Penuh (Fit Height)</option>
+                    <option value="width">Sesuai lebar layar</option>
+                    <option value="height">Sesuai tinggi layar</option>
                   </select>
+                </div>
+                <div class="settings-group">
+                  <label for="setting-gap">Jarak antar halaman</label>
+                  <select class="select" id="setting-gap">
+                    <option value="none">Tanpa jarak</option>
+                    <option value="normal">Sedang</option>
+                    <option value="wide">Lebar</option>
+                  </select>
+                </div>
+                <div class="settings-group">
+                  <label for="setting-brightness">
+                    Kecerahan
+                    <span class="settings-group__value" id="setting-brightness-val"
+                      >100%</span
+                    >
+                  </label>
+                  <input
+                    class="settings-range"
+                    type="range"
+                    id="setting-brightness"
+                    min="60"
+                    max="100"
+                    value="100"
+                    step="1"
+                  />
+                </div>
+                <div class="settings-group settings-group--row">
+                  <input type="checkbox" id="setting-hide-bar" />
+                  <label for="setting-hide-bar">Sembunyikan bilah saat scroll ke bawah</label>
+                </div>
+
+                <div class="settings-modal__footer">
+                  <button
+                    class="btn btn--ghost"
+                    type="button"
+                    id="reader-settings-reset"
+                  >
+                    Atur ulang
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div
+        class="reader-settings-scrim"
+        id="reader-settings-scrim"
+        hidden
+        aria-hidden="true"
+      ></div>
     </main>
 
     <footer class="footer">

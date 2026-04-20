@@ -709,6 +709,89 @@
       "folder": "image/shupogaki_misono_mika_en/"
     }
   ]
+
+},
+{
+  "id": "wir_spielen_ein_spiel_sensei_de",
+  "title": "Wir Spielen En Spiel Sensei DE [Firewintersnow]",
+  "cover": "image/wir_spielen_en_spiel_sensei_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Die neue Schülerin Misuzu möchte mit Sensei Mama spielen, wird Sensei sie einholen können?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 7,
+      "folder": "image/wir_spielen_en_spiel_sensei_de/"
+    }
+  ]
+},
+{
+  "id": "let's_play_a_game_sensei_en",
+  "title": "Let's Play A Game Sensei EN [Firewintersnow]",
+  "cover": "image/let's_play_a_game_sensei_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "New student name Misuzu want play mommy game with Sensei, will Sensei catch up with her?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 7,
+      "folder": "image/let's_play_a_game_sensei_en/"
+    }
+  ]
+},
+{
+  "id": "secret_love_of_nanagami_rin_en",
+  "title": "Secret Love Of Nanagami Rin EN [Firewintersnow]",
+  "cover": "image/secret_love_of_nanagami_rin_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "She may cold and ignorant to people, but deeply in her heart she can't resist for someone such Sensei.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 9,
+      "folder": "image/secret_love_of_nanagami_rin_en/"
+    }
+  ]
+},
+
+{
+  "id": "«тайная_любовь_нанагами_рин_яп",
+  "title": "«Тайная Любовь Нанагами Рин Яп [Firewintersnow]",
+  "cover": "image/«тайная_любовь_нанагами_рин_яп/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "ru",
+  "description": "Возможно, она кажется холодной и высокомерной по отношению к людям, но в глубине души она не может устоять перед таким учителем.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 9,
+      "folder": "image/«тайная_любовь_нанагами_рин_яп/"
+    }
+  ]
+
 }
   ]
 }
