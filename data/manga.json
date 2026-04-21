@@ -791,7 +791,26 @@
       "folder": "image/«тайная_любовь_нанагами_рин_яп/"
     }
   ]
-
+},
+{
+  "id": "the_first_step_to_overlord",
+  "title": "The First Step to Overlord [mokuro_uma]",
+  "cover": "image/The_First_Step_to_Overlord/2.webp",
+  "translator": "johan",
+  "genre": [
+    "drama"
+  ],
+  "series": "uma",
+  "language": "id",
+  "description": "Terinspirasi legenda Oguri Cap, T.M. Opera O bertekad menciptakan era baru. Dengan ambisi membara dan dukungan dari orang terdekat, ia menantang takdir di Satsuki Sho demi membuktikan dirinya sebagai pusat lintasan.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 27,
+      "folder": "image/The_First_Step_to_Overlord/"
+    }
+  ]
 }
   ]
 }
