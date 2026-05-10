@@ -812,6 +812,239 @@
       "folder": "image/The_First_Step_to_Overlord/"
     }
   ]
+},
+{
+  "id": "wochenende_chaos_de",
+  "title": "Wochenende Chaos DE [Firewintersnow]",
+  "cover": "image/wochenende_chaos_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Ein Wochenende, an dem Sensei entscheiden muss, wo er das gesamte Wochenende verbringen wird.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 7,
+      "folder": "image/wochenende_chaos_de/"
+    }
+  ]
+},
+{
+  "id": "weekend_shenanigan_en",
+  "title": "Weekend Shenanigan EN [Firewintersnow]",
+  "cover": "image/weekend_shenanigan_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "A weekend that Sensei need to decided to where he will spend his entire weekend.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 7,
+      "folder": "image/weekend_shenanigan_en/"
+    }
+  ]
+},
+{
+  "id": "komiitee_tägliches_problem_de",
+  "title": "Komiitee Tägliches Problem DE [Firewintersnow]",
+  "cover": "image/komiitee_tägliches_problem_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Ein weiterer Alltag in einem Land, das sie „Gehenna“ nannten",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 18,
+      "folder": "image/komiitee_tägliches_problem_de/"
+    }
+  ]
+},
+
+{
+  "id": "commite_daily_problem_en",
+  "title": "Commite Daily Problem EN [Firewintersnow]",
+  "cover": "image/commite_daily_problem_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Another normal for a land what they called \"Gehenna\"",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 0,
+      "folder": "image/commite_daily_problem_en/"
+    }
+  ]
+},
+{
+  "id": "back_pain_after_exercise_en",
+  "title": "Back Pain After Exercise EN [Firewintersnow]",
+  "cover": "image/back_pain_after_exercise_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "What Nagisa do when doing Duty in SCHALE?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 10,
+      "folder": "image/back_pain_after_exercise_en/"
+    }
+  ]
+},
+{
+  "id": "боль_в_спине_после_физических_нагрузок_ru",
+  "title": "Боль В Спине После Физических Нагрузок RU [Firewintersnow]",
+  "cover": "image/боль_в_спине_после_физических_нагрузок_ru/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "ru",
+  "description": "Чем занимается Нагиса, когда несет службу в SCHALE?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 10,
+      "folder": "image/боль_в_спине_после_физических_нагрузок_ru/"
+    }
+  ]
+},
+    {
+      "id": "Suzuka_dah_nikah",
+      "title": "Trainer dan Suzuka yang Menikah [negahami]",
+      "rating": "sfw",
+      "status": "ongoing",
+      "cover": "image/negahamiTrainerdanSuzukayangpensiun_1528043978336673/Ch1/1.png",
+      "translator": "johan",
+      "genre": [
+        "slice_of_life"
+      ],
+      "series": "uma",
+      "language": "id",
+      "description": "Kehidupan Suzuka yang sudah menikah dengan Trainer setelah pensiun",
+
+      "chapters": [
+        {
+          "number": 1,
+          "extension": ".png",
+          "pages": 20,
+          "startFrom": 1,
+          "folder": "image/negahamiTrainerdanSuzukayangpensiun_1528043978336673/Ch1/"
+        }
+      ]
+    },
+    {
+  "id": "penantian_playable__alter_",
+  "title": "Penantian Playable / Alter [雜煮]",
+  "rating": "sfw",
+  "status": "ongoing",
+  "cover": "image/Penantian_Playable/ch2/1.webp",
+  "translator": "johan",
+  "genre": [
+    "comedy"
+  ],
+  "series": "blue_archive",
+  "language": "id",
+  "description": "Para Murid Blue archive yang berusaha menunggu antrean untuk menjadi playable atau dapat alter",
+
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 13,
+      "folder": "image/Penantian_Playable/ch1/"
+    },
+    {
+      "number": 2,
+      "extension": ".webp",
+      "pages": 30,
+      "folder": "image/Penantian_Playable/ch2/"
+    },
+    {
+      "number": 3,
+      "extension": ".webp",
+      "pages": 26,
+      "folder": "image/Penantian_Playable/ch3/"
+    }
+  ]
+},
+{
+  "id": "Taiki_cium",
+  "title": "Taiki dan ciuman trainer saat tidur [moriji_funtouki]",
+  "rating": "sfw",
+  "status": "tamat",
+  "cover": "image/Taiki_ngecium/Ch1/1.png",
+  "translator": "johan",
+  "genre": [
+    "comedy"
+  ],
+  "series": "uma_musume",
+  "language": "id",
+  "description": "Taiki yang sedang mengunjungi trainer, tapi trainer tertidur sehingga taiki melakukan kejailan yang berakibat fatal",
+
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".png",
+      "pages": 9,
+      "folder": "image/Taiki_ngecium/Ch1/"
+    },
+    {
+      "number": 2,
+      "extension": ".png",
+      "pages": 13,
+      "folder": "image/Taiki_ngecium/Ch2/"
+    }
+  ]
+},
+{
+  "id": "Sensei_ketembak",
+  "title": "ketika sensei tidak sengaja kena tembak [Monoa]",
+  "rating": "sfw",
+  "status": "tamat",
+  "cover": "image/Sensei_ditembak/1.png",
+  "translator": "johan",
+  "genre": [
+    "comedy"
+  ],
+  "series": "blue_archive",
+  "language": "id",
+  "description": "Padahal cuma kena baju doang, tapi langsung diparani satu sekolah",
+
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".png",
+      "pages": 9,
+      "folder": "image/Sensei_ditembak/"
+    }
+  ]
 }
+
   ]
 }
