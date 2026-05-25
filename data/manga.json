@@ -968,7 +968,7 @@
   "genre": [
     "comedy"
   ],
-  "series": "blue_archive",
+  "series": "bluearchive",
   "language": "id",
   "description": "Para Murid Blue archive yang berusaha menunggu antrean untuk menjadi playable atau dapat alter",
 
@@ -1032,7 +1032,7 @@
   "genre": [
     "comedy"
   ],
-  "series": "blue_archive",
+  "series": "bluearchive",
   "language": "id",
   "description": "Padahal cuma kena baju doang, tapi langsung diparani satu sekolah",
 
@@ -1042,6 +1042,126 @@
       "extension": ".png",
       "pages": 9,
       "folder": "image/Sensei_ditembak/"
+    }
+  ]
+},
+{
+  "id": "vorschlag_am_donnerstag_de",
+  "title": "Vorschlag Am Donnerstag DE (Firewintersnow)",
+  "cover": "image/vorschlag_am_donnerstag_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Du schlägst vor, Rabu als Mittwoch zu bezeichnen",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 11,
+      "folder": "image/vorschlag_am_donnerstag_de/"
+    }
+  ]
+},
+{
+  "id": "proposal_in_wednesday_en",
+  "title": "Proposal In Wednesday EN [Firewintersnow]",
+  "cover": "image/proposal_in_wednesday_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "You propose Rabu in Wednesday",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 11,
+      "folder": "image/proposal_in_wednesday_en/"
+    }
+  ]
+},
+{
+  "id": "one,_two,_three,_remedia_knight_is_here!_en",
+  "title": "One, Two, Three, Remedia Knight Is Here! EN [Firewintersnow]",
+  "cover": "image/one,_two,_three,_remedia_knight_is_here!_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "What happen when Hanae being task to do instead Serina?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 15,
+      "folder": "image/one,_two,_three,_remedia_knight_is_here!_en/"
+    }
+  ]
+},
+{
+  "id": "ein_streich_mit_bösem_ende_de",
+  "title": "Ein Streich Mit Bösem Ende DE [Firewintersnow]",
+  "cover": "image/ein_streich_mit_bösem_ende_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Es sollte eigentlich ein interner Streich für Problem Solver 68 sein, aber aus irgendeinem Grund versammeln sich die Leute auf der Suche nach Sensei",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/ein_streich_mit_bösem_ende_de/"
+    }
+  ]
+},
+{
+  "id": "prank_that_went_wrong_en",
+  "title": "Prank That Went Wrong EN [Firewintersnow]",
+  "cover": "image/prank_that_went_wrong_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "It should be a prank internal for Problem Solver 68 but for some reason people gathering looking for Sensei",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 8,
+      "folder": "image/prank_that_went_wrong_en/"
+    }
+  ]
+},
+{
+  "id": "stage_dream_of_sensei_from_schale_en",
+    "title": "Stage Dream Of Sensei From SCHALE EN [Firewintersnow",
+  "cover": "image/stage_dream_of_sensei_from_schale_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Sensei had a nightmare that doesn't look like one, what is that and how's it's possible?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 14,
+      "folder": "image/stage_dream_of_sensei_from_schale_en/"
     }
   ]
 }
