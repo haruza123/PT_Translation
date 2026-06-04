@@ -1164,6 +1164,126 @@
       "folder": "image/stage_dream_of_sensei_from_schale_en/"
     }
   ]
+},
+{
+  "id": "rescuing_sensei_code_name_dryness_en",
+  "title": "Rescuing Sensei Code Name Dryness EN [Firewintersnow]",
+  "cover": "image/rescuing_sensei_code_name_dryness_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "Everyone is trying to find Sensei, but somehow they manage to do it in the most complicated way possible.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 12,
+      "folder": "image/rescuing_sensei_code_name_dryness_en/"
+    }
+  ]
+},
+{
+  "id": "die_rettung_von_sensei_deckname_dryness_de",
+  "title": "Die Rettung Von Sensei, Deckname Dryness DE [Firewintersnow]",
+  "cover": "image/die_rettung_von_sensei_deckname_dryness_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Alle suchen nach Sensei, schaffen es dabei aber auf die denkbar umständlichste Weise.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 12,
+      "folder": "image/die_rettung_von_sensei_deckname_dryness_de/"
+    }
+  ]
+},
+{
+  "id": "new_haircut_en",
+  "title": "New Haircut EN [Firewintersnow]",
+  "cover": "image/new_haircut_en/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "New Haircut or new disaster?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 10,
+      "folder": "image/new_haircut_en/"
+    }
+  ]
+},
+{
+  "id": "neue_frisur_de",
+  "title": "Neue Frisur DE [Firewintersnow]",
+  "cover": "image/neue_frisur_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Neuer Frisur oder neues Desaster?",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 11,
+      "folder": "image/neue_frisur_de/"
+    }
+  ]
+},
+{
+  "id": "making_contract_with_gehenna_en",
+  "title": "Making Contract With Gehenna EN [Firewintersnow]",
+  "cover": "image/making_contract_with_gehenna/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "En",
+  "description": "One lesson in Kivotos: never make a deal with Gehenna students.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 16,
+      "folder": "image/making_contract_with_gehenna/"
+    }
+  ]
+},
+{
+  "id": "einen_pakt_mit_gehenna_schliessen_de",
+  "title": "Einen Pakt Mit Gehenna Schließen DE [Firewintersnow]",
+  "cover": "image/einen_pakt_mit_gehenna_schliessen_de/1.webp",
+  "translator": "Zack",
+  "genre": [
+    "comedy"
+  ],
+  "series": "bluearchive",
+  "language": "de",
+  "description": "Eine wichtige Lektion in Kivotos: Schließe niemals einen Deal mit Schülern aus Gehenna.",
+  "chapters": [
+    {
+      "number": 1,
+      "extension": ".webp",
+      "pages": 16,
+      "folder": "image/einen_pakt_mit_gehenna_schliessen_de/"
+    }
+  ]
 }
 
   ]
